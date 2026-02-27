@@ -1,0 +1,68 @@
+{
+  "mcpServers": {
+    "amplitude": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.amplitude.com/mcp"
+      ]
+    },
+    "atlassian": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.atlassian.com/v1/mcp",
+        "--static-oauth-client-metadata",
+        "{\"scope\":\"read:page:confluence read:comment:confluence read:space:confluence read:hierarchical-content:confluence search:confluence read:jira-work search:rovo:mcp read:account read:me offline_access\"}",
+        "--ignore-tool",
+        "createConfluenceFooterComment",
+        "--ignore-tool",
+        "createConfluenceInlineComment",
+        "--ignore-tool",
+        "createConfluencePage",
+        "--ignore-tool",
+        "updateConfluencePage",
+        "--ignore-tool",
+        "addCommentToJiraIssue",
+        "--ignore-tool",
+        "addWorklogToJiraIssue",
+        "--ignore-tool",
+        "createJiraIssue",
+        "--ignore-tool",
+        "editJiraIssue",
+        "--ignore-tool",
+        "transitionJiraIssue",
+        "--ignore-tool",
+        "createCompassComponent",
+        "--ignore-tool",
+        "createCompassComponentRelationship",
+        "--ignore-tool",
+        "createCompassCustomFieldDefinition",
+        "--ignore-tool",
+        "deleteCompassComponent",
+        "--ignore-tool",
+        "deleteCompassComponentRelationship",
+        "--ignore-tool",
+        "deleteCompassCustomFieldDefinition",
+        "--ignore-tool",
+        "updateJsmOpsAlert",
+        "--ignore-tool",
+        "create*",
+        "--ignore-tool",
+        "update*",
+        "--ignore-tool",
+        "edit*",
+        "--ignore-tool",
+        "delete*",
+        "--ignore-tool",
+        "addComment*",
+        "--ignore-tool",
+        "addWorklog*",
+        "--ignore-tool",
+        "transition*"
+      ]
+    }
+  }
+}
