@@ -5,9 +5,9 @@
 
 ## What is this?
 
-The RainFocus Research Assistant is a custom Claude plugin built specifically for our team. It isn't generic Claude — it's been trained on our research process, our methodology library, our role definitions across the CS org, how our clients work, and the way we think about building product at RainFocus.
+The RainFocus Research Assistant is a custom Claude plugin built specifically for our team. It isn't generic Claude — it's been trained on our research process, our methodology library, our role definitions across the CS org, how our clients work, and the way we think about building product at RainFocus. This plugin also has access to Confluence data, so it can quickly get context for whatever you're working on regarding RainFocus Admin and the RainFocus product. The RainFocus Research Assistant can also pull and synthesize Amplitude data to help answer research questions.
 
-It can help any designer on the team do better research, faster. Whether you've never run a user interview before or you just need a second set of eyes on a study plan before you put it in front of participants, this is for you.
+The RainFocus research assistant can help any designer on the team do better research, faster. Whether you've never run a user interview before or you just need a second set of eyes on a study plan before you put it in front of participants, this is for you.
 
 ---
 
@@ -23,61 +23,57 @@ It can help any designer on the team do better research, faster. Whether you've 
 
 **Be your institutional memory.** It knows our CS role structure (CSMs, SCs, SAs, PMs, EDCs, Implementation Engineers) and can suggest the right internal SMEs for co-design workshops based on the type of problem you're solving. It knows about the Client Research Panel and can point you to it before you go recruit. It knows that Craft.io is our incoming feedback engine and will prompt you to check it for existing signals before spinning up new research.
 
+**Discover new insights.** It can help you connect research data to Amplitude data, creating powerful insights.
+
 ---
 
 ## Installation
 
-Use one of these install paths depending on whether you are developing locally or rolling this out to the team.
+Use one of these install paths depending on how you use Claude.
+Works in Claude Code CLI, Claude Desktop (Cowork tab), and Claude Desktop (Code tab).
 
----
+### Method #1 — Local development (Claude Code CLI)
 
-### Local development (Claude Code CLI)
 
-Run Claude with the local plugin directory:
+**Install**
 
-```bash
-claude --plugin-dir ./rf-research-assistant-plugin
+```
+/plugin install --url https://github.com/rainfocus/rf-research-assistant-plugin
 ```
 
-This is the fastest way to test changes to commands, skills, and MCP config in the repo.
+You'll need read access to the repo. If you can clone it, you can install it.
 
----
 
-### Team/private distribution (recommended)
-
-1. Add your private plugin marketplace source:
-
-```bash
-claude plugin marketplace add github.com/your-org/your-private-marketplace
-```
-
-2. Refresh marketplace metadata:
-
-```bash
-claude plugin marketplace update
-```
-
-3. Install the plugin:
-
-```bash
-claude plugin install rf-research@your-marketplace
-```
-
-4. Verify installation:
+**Verify installation**
 
 ```bash
 claude plugin list
 ```
 
-This keeps distribution private while giving the team one repeatable install flow.
+**Update**
+
+```
+/plugin update rf-research
+```
+
+Run this anytime to pull the latest version.
+
+**Uninstall**
+
+```bash
+claude plugin uninstall rf-research
+```
+
+Clean uninstall, no residue. Reinstall any time with the same one-line command from above.
 
 ---
 
-### Optional desktop GUI upload path
+### Method #2 – Claude Desktop App
+**Requirements:** Claude Pro, Max, Team, or Enterprise plan.
+Works with Claude Cowork & Claude Code
 
-If your Claude desktop build exposes a custom plugin upload UI, you can also distribute a zip of `rf-research-assistant-plugin` and install through that UI.
-
-Atlassian authentication in this plugin uses OAuth.
+1. Download the folder from this github file
+2. Customize > Personal plugins > Add plugin > Upload plugin
 
 ---
 
@@ -96,9 +92,7 @@ This only happens once per tool. After that, Claude pulls context from them auto
 
 | Tool | What it gives Claude |
 |------|----------------------|
-| **Figma** | Reference design files and research documentation |
 | **Amplitude** | Behavioral data and usage patterns |
-| **Google Calendar** | Research session scheduling |
 | **Confluence / Jira** | RainFocus help docs and platform tickets in read/search-only mode |
 
 You don't have to do anything special — Claude draws on these when relevant. You can also ask directly: "Pull up the Figma file for [feature] and tell me what we already know about this area."
@@ -146,16 +140,6 @@ Describe your design phase, what you're trying to learn, your timeline, and any 
 Paste in notes, observations, or transcripts from a completed study. Claude will help you identify patterns, structure findings by theme, pull out the key insight in each area, and frame things in language that's useful for stakeholders and roadmap conversations.
 
 *Good for: After any study, especially when you've got a lot of raw material and aren't sure where to start.*
-
----
-
-## Uninstalling
-
-```bash
-claude plugin uninstall rf-research
-```
-
-Clean uninstall, no residue. Reinstall any time with the same one-line command from above.
 
 ---
 
