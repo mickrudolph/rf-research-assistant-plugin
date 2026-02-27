@@ -1,2 +1,172 @@
-# rf-research-assistant-plugin
-A Claude Code plugin that provides structured guidance and tools for UX research at RainFocus. Has RainFocus context & best practices as well as integrations with external tools/resources like Confluence and Amplitude. Use during both the planning & post research phases.
+# RainFocus Research Assistant
+### A shared AI plugin for the UX team
+
+---
+
+## What is this?
+
+The RainFocus Research Assistant is a custom Claude plugin built specifically for our team. It isn't generic Claude — it's been trained on our research process, our methodology library, our role definitions across the CS org, how our clients work, and the way we think about building product at RainFocus.
+
+It can help any designer on the team do better research, faster. Whether you've never run a user interview before or you just need a second set of eyes on a study plan before you put it in front of participants, this is for you.
+
+---
+
+## What can it actually do?
+
+**Help you build a research plan from scratch.** Give it a problem you're trying to understand and it'll walk you through defining objectives, forming a testable hypothesis, choosing the right method, scoping participants, and knowing what output you're working toward. It knows the difference between discovery and validation, and it knows who owns each (spoiler: discovery is PM-owned and you should loop them in).
+
+**Pressure-test a plan you've already written.** Hand it your draft plan and it'll critique it honestly — flagging weak objectives, leading questions, scope issues, or a hypothesis that can't actually be disproven. Better to hear it from Claude before you're in a session.
+
+**Recommend the right method for your situation.** Describe where you are in the design process and what you're trying to learn, and it'll recommend a method from our actual methodology library with a rationale and trade-offs — not a generic answer from the internet.
+
+**Help you synthesize after a study.** Paste in raw notes or observations and it'll help you structure findings, identify patterns, surface the so-what, and frame things in a way that's useful for PMs and stakeholders.
+
+**Be your institutional memory.** It knows our CS role structure (CSMs, SCs, SAs, PMs, EDCs, Implementation Engineers) and can suggest the right internal SMEs for co-design workshops based on the type of problem you're solving. It knows about the Client Research Panel and can point you to it before you go recruit. It knows that Craft.io is our incoming feedback engine and will prompt you to check it for existing signals before spinning up new research.
+
+---
+
+## Installation
+
+Use one of these install paths depending on whether you are developing locally or rolling this out to the team.
+
+---
+
+### Local development (Claude Code CLI)
+
+Run Claude with the local plugin directory:
+
+```bash
+claude --plugin-dir ./rf-research-assistant-plugin
+```
+
+This is the fastest way to test changes to commands, skills, and MCP config in the repo.
+
+---
+
+### Team/private distribution (recommended)
+
+1. Add your private plugin marketplace source:
+
+```bash
+claude plugin marketplace add github.com/your-org/your-private-marketplace
+```
+
+2. Refresh marketplace metadata:
+
+```bash
+claude plugin marketplace update
+```
+
+3. Install the plugin:
+
+```bash
+claude plugin install rf-research@your-marketplace
+```
+
+4. Verify installation:
+
+```bash
+claude plugin list
+```
+
+This keeps distribution private while giving the team one repeatable install flow.
+
+---
+
+### Optional desktop GUI upload path
+
+If your Claude desktop build exposes a custom plugin upload UI, you can also distribute a zip of `rf-research-assistant-plugin` and install through that UI.
+
+Atlassian authentication in this plugin uses OAuth.
+
+---
+
+### Authenticating the connected tools
+
+The first time you use the plugin, Claude will prompt you to authenticate each connected tool. You'll need to log in to:
+
+- **Figma** — your RF Figma account
+- **Amplitude** — your RF Amplitude account
+- **Google Calendar** — your work Google account
+- **Atlassian** — your RF credentials for Confluence and Jira (OAuth flow)
+
+This only happens once per tool. After that, Claude pulls context from them automatically.
+
+### Connected tools
+
+| Tool | What it gives Claude |
+|------|----------------------|
+| **Figma** | Reference design files and research documentation |
+| **Amplitude** | Behavioral data and usage patterns |
+| **Google Calendar** | Research session scheduling |
+| **Confluence / Jira** | RainFocus help docs and platform tickets in read/search-only mode |
+
+You don't have to do anything special — Claude draws on these when relevant. You can also ask directly: "Pull up the Figma file for [feature] and tell me what we already know about this area."
+
+If you've previously connected Atlassian, disconnect and reconnect once so the latest plugin connector settings are applied.
+
+---
+
+## Slash commands
+
+Once the plugin is installed, type any of these in a Claude Code session to launch a guided workflow:
+
+---
+
+#### `/rf-research:plan`
+**Build a research plan from scratch.**
+
+Claude will ask whether you're doing discovery or validation/usability testing, then walk you through each section of the appropriate template — persona, objectives, hypothesis, scenario or questions, and participant sourcing. At the end you'll have a complete plan ready to drop into Coda.
+
+*Good for: Any time you're starting a new study and need to think it through before diving in.*
+
+---
+
+#### `/rf-research:critique`
+**Get honest feedback on a plan you've already written.**
+
+Paste in your research plan and Claude will review it — checking for vague objectives, leading questions, a hypothesis you could never actually disprove, the wrong method for the question, or scope that doesn't match the decision. It gives you a clear verdict and specific fixes.
+
+*Good for: Before you send a plan to Mick for review, or before you start recruiting.*
+
+---
+
+#### `/rf-research:method`
+**Get a method recommendation for your specific situation.**
+
+Describe your design phase, what you're trying to learn, your timeline, and any constraints. Claude will recommend one or two methods from our methodology library with a rationale and honest trade-offs — not a generic textbook answer.
+
+*Good for: When you're not sure if interviews, a survey, usability testing, or something else is right for the moment.*
+
+---
+
+#### `/rf-research:synthesize`
+**Turn raw notes into structured findings.**
+
+Paste in notes, observations, or transcripts from a completed study. Claude will help you identify patterns, structure findings by theme, pull out the key insight in each area, and frame things in language that's useful for stakeholders and roadmap conversations.
+
+*Good for: After any study, especially when you've got a lot of raw material and aren't sure where to start.*
+
+---
+
+## Uninstalling
+
+```bash
+claude plugin uninstall rf-research
+```
+
+Clean uninstall, no residue. Reinstall any time with the same one-line command from above.
+
+---
+
+## A few things worth knowing
+
+**Check the Client Research Panel before recruiting.** It's [here in Coda](https://coda.io/d/RainFocus-Product_ddE93PC6Wet/Research-Panel_suBD2z94#_luZ0ABJy). It tracks who's been contacted, when, and for what. We have real client relationships to protect — loop Mick in on outreach.
+
+**Discovery is PM-owned.** If you're doing early discovery research, your PM should be looped in. Claude knows this and will flag it if you seem to be running discovery solo.
+
+**Mick is still a resource.** The assistant is a resource, not a replacement — feel free to reach out to Mick at any time. The goal is more research, better research, and a team that feels confident doing it.
+
+---
+
+*Questions? Find Mick on Slack.*
