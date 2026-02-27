@@ -53,7 +53,7 @@ claude plugin list
 **Update**
 
 ```
-/plugin update rf-research
+/plugin update rf-research-assistant-plugin
 ```
 
 Run this anytime to pull the latest version.
@@ -61,7 +61,7 @@ Run this anytime to pull the latest version.
 **Uninstall**
 
 ```bash
-claude plugin uninstall rf-research
+claude plugin uninstall rf-research-assistant-plugin
 ```
 
 Clean uninstall, no residue. Reinstall any time with the same one-line command from above.
