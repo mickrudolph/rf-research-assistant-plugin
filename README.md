@@ -38,7 +38,7 @@ Works in Claude Code CLI, Claude Desktop (Cowork tab), and Claude Desktop (Code 
 **Install**
 
 ```
-/plugin install --url https://github.com/rainfocus/rf-research-assistant-plugin
+/plugin install --url https://github.com/mickrudolph/rf-research-assistant-plugin
 ```
 
 You'll need read access to the repo. If you can clone it, you can install it.
