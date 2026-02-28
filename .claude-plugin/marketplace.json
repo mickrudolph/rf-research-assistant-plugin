@@ -1,0 +1,17 @@
+{
+  "name": "rf-research-assistant",
+  "owner": {
+    "name": "Mick Rudolph"
+  },
+  "plugins": [
+    {
+      "name": "rf-research",
+      "source": ".",
+      "description": "Research methodology coaching for the RainFocus UX team. Helps plan studies, recommend methods, pressure-test plans, and synthesize findings grounded in how research works at RainFocus. Also includes connections to Amplitude and Confluence data.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Mick Rudolph"
+      }
+    }
+  ]
+}
