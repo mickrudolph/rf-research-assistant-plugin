@@ -32,17 +32,34 @@ The RainFocus research assistant can help any designer on the team do better res
 Use one of these install paths depending on how you use Claude.
 Works in Claude Code CLI, Claude Desktop (Cowork tab), and Claude Desktop (Code tab).
 
-### Method #1 — Local development (Claude Code CLI)
+### Method #1 — Claude Code CLI
 
+**Prerequisites**
+
+Make sure you're authenticated with GitHub over HTTPS:
+
+```bash
+brew install gh
+gh auth login
+```
+
+Choose **HTTPS** when prompted. Then configure git to use HTTPS for GitHub:
+
+```bash
+git config --global url."https://github.com/".insteadOf "git@github.com:"
+```
 
 **Install**
 
+1. Add the marketplace:
 ```
-/plugin install --url https://github.com/mickrudolph/rf-research-assistant-plugin
+/plugin marketplace add https://github.com/mickrudolph/rf-research-assistant-plugin.git
 ```
 
-You'll need read access to the repo. If you can clone it, you can install it.
-
+2. Install the plugin:
+```
+/plugin install rf-research@rf-research-assistant
+```
 
 **Verify installation**
 
@@ -53,7 +70,7 @@ claude plugin list
 **Update**
 
 ```
-/plugin update rf-research-assistant-plugin
+/plugin marketplace update rf-research-assistant
 ```
 
 Run this anytime to pull the latest version.
@@ -61,10 +78,10 @@ Run this anytime to pull the latest version.
 **Uninstall**
 
 ```bash
-claude plugin uninstall rf-research-assistant-plugin
+claude plugin uninstall rf-research
 ```
 
-Clean uninstall, no residue. Reinstall any time with the same one-line command from above.
+Clean uninstall, no residue. Reinstall any time with the same commands from above.
 
 ---
 
