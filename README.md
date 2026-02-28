@@ -160,6 +160,15 @@ Paste in notes, observations, or transcripts from a completed study. Claude will
 
 ---
 
+#### `/rf-research:help`
+**Show a cheat sheet of everything the plugin can do.**
+
+Lists all slash commands, connected tools, and general capabilities in one quick reference.
+
+*Good for: When you forget what's available or want a quick overview.*
+
+---
+
 ## A few things worth knowing
 
 **Check the Client Research Panel before recruiting.** It's [here in Coda](https://coda.io/d/RainFocus-Product_ddE93PC6Wet/Research-Panel_suBD2z94#_luZ0ABJy). It tracks who's been contacted, when, and for what. We have real client relationships to protect — loop Mick in on outreach.
