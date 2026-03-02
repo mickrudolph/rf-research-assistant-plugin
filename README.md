@@ -35,10 +35,6 @@ Works in Claude Code CLI, Claude Desktop (Cowork tab), and Claude Desktop (Code 
 ### Method #1 — Claude Code CLI
 
 <!--
-This whole block
-will be hidden
-from the rendered output
--->
 **Prerequisites**
 
 Make sure you're authenticated with GitHub over HTTPS:
@@ -53,6 +49,8 @@ Choose **HTTPS** when prompted. Then configure git to use HTTPS for GitHub:
 ```bash
 git config --global url."https://github.com/".insteadOf "git@github.com:"
 ```
+-->
+
 
 **Install**
 
