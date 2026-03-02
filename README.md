@@ -75,11 +75,15 @@ Clean uninstall, no residue. Reinstall any time with the same commands from abov
 Works with Claude Cowork & Claude Code
 
 In Claude, go to Customize → Personal plugins → Add plugin → Add marketplace
-Enter: mickrudolph/rf-research-assistant-plugin
+Enter: 
+```
+mickrudolph/rf-research-assistant-plugin
+```
 Once the marketplace is added, find rf-research in the plugin list and click install
 
 To update the plugin later (after you push changes to GitHub):
 Go to Customize → Personal plugins, find the marketplace, and hit update — no reinstall needed.
+
 First-time authentication: After installing, the first time you use the plugin Claude will prompt you to authenticate Amplitude and Atlassian (Confluence/Jira). That's a one-time step per tool.
 
 ---
