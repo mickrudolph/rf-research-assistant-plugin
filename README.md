@@ -75,6 +75,7 @@ Clean uninstall, no residue. Reinstall any time with the same commands from abov
 Works with Claude Cowork & Claude Code
 
 In Claude, go to Customize → Personal plugins → Add plugin → Add marketplace
+
 Enter: 
 ```
 mickrudolph/rf-research-assistant-plugin
