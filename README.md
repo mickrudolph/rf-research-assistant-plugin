@@ -34,6 +34,11 @@ Works in Claude Code CLI, Claude Desktop (Cowork tab), and Claude Desktop (Code 
 
 ### Method #1 — Claude Code CLI
 
+<!--
+This whole block
+will be hidden
+from the rendered output
+-->
 **Prerequisites**
 
 Make sure you're authenticated with GitHub over HTTPS:
