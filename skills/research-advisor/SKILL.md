@@ -157,6 +157,18 @@ The RainFocus design team operates by six principles. Research recommendations s
 | "A client requested a specific feature" | User Interviews (to uncover the underlying need) |
 | "We're going to a live event" | Contextual Inquiry (Onsite) |
 | "We want to know if users can find things in the product" | First Click Testing, Tree Testing |
+| "We have a design and need to validate it with real users" | Usability Testing (Moderated) |
+| "We need fast prototype feedback at scale" | Usability Testing (Unmoderated), First Click Testing |
+| "We don't know how users are actually using the product" | Analytics / Behavioral Analysis, Observation (Screen Recording) |
+| "We have behavioral data but need to understand why" | Analytics / Behavioral Analysis → User Interviews |
+| "We want ongoing lightweight user contact without discrete studies" | Continuous Discovery / Rolling Research Cadence |
+| "We need to mine existing feedback before starting research" | Support Ticket / CS Call Mining, Craft.io review |
+| "We want to know if the design feels right for enterprise users" | Desirability Studies |
+| "We need to compare our product to a baseline or competitor" | Benchmarking Studies |
+| "We want to understand a complex workflow that spans weeks" | Diary Studies |
+| "We need to understand the full service delivery system, not just the user experience" | Service Blueprinting |
+| "A client gave us strategic feedback and we need to know if it reflects real user needs" | Feedback Sessions / CABs → User Interviews |
+| "We need a shared model of who we're designing for" | Personas / Archetypes |
 
 ---
 
@@ -460,6 +472,486 @@ Visualizing the steps a user takes to achieve a goal, highlighting actions, emot
 
 ---
 
+### USABILITY TESTING
+**Category**: Validation | **Effort**: Moderate–High | **Cost**: Moderate
+
+The core validation method — observing real users attempt tasks on a prototype or live product to identify where designs succeed or fail. At RainFocus, usability testing is UX-owned and runs in two forms: moderated (live sessions, facilitated by a researcher or designer) and unmoderated (self-directed, async).
+
+**Moderated vs. Unmoderated**:
+- *Moderated*: Researcher facilitates live via Zoom. Richer insight — you can probe, redirect, and capture nuance. Best for complex workflows, early-stage prototypes, or when you need to understand the *why* behind behavior.
+- *Unmoderated*: Participants complete tasks on their own via a tool like Maze. Faster, higher volume, lower cost. Best for simple validation questions, navigation tasks, or when you need breadth over depth.
+
+**Lo/Mid-Fi vs. Hi-Fi**:
+- *Validation (lo/mid-fi)*: Checking problem-solution fit. Are we solving the right problem in roughly the right way? Use the Usability Testing/Validation Plan template.
+- *Usability Testing (hi-fi)*: High confidence needed before handing to dev. The design is largely settled — you're testing execution, not concept.
+
+**When it fits**:
+- After a co-design workshop or concept phase, when you have something testable
+- Before committing design direction to development
+- When you want to confirm that real users can complete critical workflows without guidance
+- After heuristic evaluation or cognitive walkthrough has removed obvious issues
+
+**Sample size**: 5 users will surface most major usability issues (Nielsen's law). For unmoderated, 10–20 participants gives more stable quantitative signal.
+
+**How to conduct well**:
+- Write a Usability Testing/Validation Plan — define objectives, hypothesis, persona, and scenario before touching the prototype
+- Set the scenario without naming UI elements: "You're an event admin who needs to update session capacity" — not "click the Sessions tab"
+- Use the think-aloud protocol: ask participants to narrate their thought process
+- Record everything; don't rely on live notes alone
+- Run a cognitive walkthrough or heuristic evaluation first — don't waste participant time on issues you can catch internally
+- Debrief with the team immediately after each session while it's fresh
+
+**Guiding principles**:
+- *Do*: Stay neutral. Let users struggle. Silence is data.
+- *Avoid*: Rescuing users too quickly. Leading questions. Testing a design the team has already decided to ship.
+- *Mindset*: You are testing the design, not the user. There are no wrong answers.
+
+**Outputs**: Usability issues list with severity ratings, task completion rates, recommended design changes, confidence signal for dev handoff
+
+**Pitfalls**:
+- Running usability testing without first removing obvious issues via expert review — you'll surface things you already knew
+- Skipping the scenario setup — users who don't understand the context can't complete tasks naturally
+- Testing too early (before the design is coherent) or too late (after dev has already started)
+- Conflating moderated insights (deep, small N) with quantitative signal
+
+---
+
+### SURVEYS & QUESTIONNAIRES
+**Category**: Quantitative / Attitudinal | **Effort**: Low | **Cost**: Very Low
+
+Structured sets of questions distributed to larger groups of participants to collect attitudinal data at scale. Surveys are fast and cheap but trade depth for breadth — they tell you *what* people think, not *why*.
+
+**When it fits**:
+- When you need a broad signal from a large population (attendees, exhibitors)
+- Post-event: measuring satisfaction, NPS, or specific experience quality
+- When you want to quantify patterns already identified qualitatively ("We heard in interviews that exhibitors struggle with setup — let's see how widespread that is")
+- Screening participants for follow-on research
+
+**At RainFocus**:
+- Best suited for the attendee persona — large, accessible population with lower relationship cost
+- Use with caution for admin and exhibitor personas — over-surveying high-value client contacts erodes goodwill and competes with CS relationships. Coordinate with CSMs before surveying client admins.
+- Post-event surveys embedded in the attendee app are a natural, low-friction channel
+
+**Sample size**: 30+ responses for basic patterns; 100+ for reliable segmentation
+
+**How to conduct well**:
+- Start with a clear learning objective — don't build a survey until you know what decision it will inform
+- Keep it short: 5–10 questions max; drop any question you can't tie to a learning objective
+- Use a mix: rating scales for quantification, open-text fields for unexpected signal
+- Pilot with 2–3 people before sending
+- Tools: Typeform, Google Forms, or in-platform survey tools
+
+**Guiding principles**:
+- *Do*: Use surveys to quantify, not to discover. Let qualitative research lead; surveys follow.
+- *Avoid*: Leading questions. Asking about behavior hypothetically ("Would you use this?"). Treating survey data as behavioral data — it isn't.
+- *Mindset*: Surveys tell you what people say. Interviews tell you what people mean.
+
+**Outputs**: Quantitative summary, key patterns, open-text themes, screening shortlist for follow-on research
+
+**Pitfalls**:
+- Designing a survey before defining learning objectives — you'll end up with data you can't act on
+- Surveying the same admin contacts repeatedly — check the Client Research Panel
+- Conflating high response rates with high validity
+- Treating Likert scale averages as insights — they're a starting point, not a conclusion
+
+---
+
+### ANALYTICS / BEHAVIORAL ANALYSIS
+**Category**: Quantitative / Behavioral | **Effort**: Low | **Cost**: Very Low
+
+Using product analytics data — at RainFocus, primarily Amplitude — to understand how users actually behave in the product. This is behavioral data, not self-reported, which makes it uniquely valuable: users do things they wouldn't describe in an interview.
+
+**When it fits**:
+- Before starting discovery: understanding what the data already shows about where users drop off, struggle, or disengage
+- When you want to size a problem before investing in qualitative research
+- After usability testing or interviews, to check whether observed issues show up at scale
+- When a PM or stakeholder says "we think users are struggling with X" — check the data before planning research
+
+**At RainFocus**:
+- Amplitude is the primary tool — check with PM or the analytics team for access and relevant dashboards
+- Key analyses: funnel drop-off, feature adoption, session frequency, error rates
+- Complement with Craft.io, which aggregates client feedback signals — both are passive data sources that can surface research questions before you recruit anyone
+- Analytics tells you *where* problems exist; qualitative research tells you *why*
+
+**How to conduct well**:
+- Start with a hypothesis: "We think users are abandoning the lead retrieval setup at step 3 — let's look at the funnel"
+- Look for anomalies: unexpected drop-offs, low adoption of key features, high error rates
+- Segment when possible: admin behavior vs. exhibitor behavior will look different
+- Bring findings to a research planning conversation — analytics should inform your interview guide, not replace interviews
+
+**Guiding principles**:
+- *Do*: Use behavioral data to sharpen your questions before going to users. Trust it over self-reported attitudes when they conflict.
+- *Avoid*: Over-interpreting without qualitative context. A 40% drop-off is a signal, not an explanation.
+- *Mindset*: Reality Over Reports. Behavioral data is ground truth about what people do.
+
+**Outputs**: Funnel visualizations, adoption metrics, usage patterns, prioritized research questions
+
+**Pitfalls**:
+- Treating analytics as a substitute for talking to users — it tells you what, never why
+- Not having a hypothesis going in — open-ended data exploration rarely produces actionable insight
+- Ignoring data because it conflicts with a design decision already made
+
+---
+
+### BENCHMARKING STUDIES
+**Category**: Evaluative / Quantitative | **Effort**: Moderate | **Cost**: Low
+
+Measuring the usability or experience quality of the current product against a baseline — a previous version, a competitor, or an industry standard — using standardized metrics.
+
+**When it fits**:
+- When you need objective evidence to justify a redesign or major change
+- Before and after a significant design change, to demonstrate improvement
+- When comparing RainFocus to competitor platforms on specific workflows
+- When stakeholders need quantitative data, not just qualitative insight
+
+**Common frameworks**:
+- *SUS (System Usability Scale)*: 10-question standardized questionnaire, produces a 0–100 score. Industry average is ~68. Quick to administer, widely understood.
+- *SUPR-Q*: More comprehensive; measures usability, trust, loyalty, and appearance. Better for web/product experiences.
+- *Task-based metrics*: Time on task, error rate, task completion rate — collected during usability testing sessions
+
+**At RainFocus**:
+- Most useful for admin-facing flows where there's a clear industry benchmark to compare against
+- Can be run as a 10-minute add-on at the end of usability testing sessions — administer SUS at the close
+- Useful for building a business case: "Our admin registration flow scores 52 SUS; the industry benchmark is 68"
+
+**How to conduct well**:
+- Establish a baseline before any changes so you have something to compare against
+- Use the same method consistently across rounds — you can only compare apples to apples
+- Pair with qualitative sessions to understand what's driving the numbers
+
+**Outputs**: SUS or SUPR-Q score, task completion rates, comparison to baseline or competitor, business case data
+
+**Pitfalls**:
+- Running benchmarks without a baseline — a single score in isolation doesn't mean much
+- Using benchmarking to justify a decision already made rather than to genuinely measure
+- Treating a good SUS score as proof the design is done — scores measure usability, not whether the product solves the right problem
+
+---
+
+### DESIRABILITY STUDIES
+**Category**: Evaluative / Attitudinal | **Effort**: Low | **Cost**: Very Low
+
+A method for measuring whether a design *feels right* — whether the aesthetic, tone, and personality of a design aligns with user expectations. Adapted from Microsoft's Product Reaction Cards method.
+
+**When it fits**:
+- When evaluating a significant visual or conceptual direction change
+- When you want to know if a design feels appropriate for enterprise B2B users (professional, trustworthy, efficient) vs. misaligned (playful, overwhelming, confusing)
+- As a quick complement to usability testing — after testing function, check for feel
+- When stakeholders are debating between design directions and you need signal beyond personal preference
+
+**How to conduct well**:
+- Present participants with a set of descriptive words (e.g., "professional," "confusing," "trustworthy," "overwhelming," "modern," "cluttered") — typically 25–40 cards
+- Ask them to select 5 words that best describe their reaction to the design
+- Follow up: "You chose 'professional' — can you say more about what gives you that impression?"
+- Compare results across participants to identify patterns; flag any negative words that appear repeatedly
+
+**At RainFocus**:
+- Particularly relevant when redesigning client-facing admin experiences — enterprise clients have strong expectations about what "professional software" looks and feels like
+- Can be run as a 10-minute add-on at the end of a usability test session
+
+**Outputs**: Word frequency map, key positive/negative impressions, recommendations for visual or tonal adjustments
+
+**Pitfalls**:
+- Using too few participants — you need 5–8 minimum to see patterns
+- Skipping the follow-up conversation — the word selections are interesting; the reasons are the insight
+- Conflating "I don't like this personally" with "users find this undesirable"
+
+---
+
+### CONTINUOUS DISCOVERY / ROLLING RESEARCH CADENCE
+**Category**: Discovery (Operating Model) | **Effort**: Low (per touchpoint) | **Cost**: Low
+
+A structured approach to embedding research into ongoing product development rather than running discrete studies. Instead of planning a "research sprint," designers maintain a regular cadence of lightweight user touchpoints — often weekly — so the team is always learning rather than periodically catching up.
+
+This is an operating model as much as a method. The core idea (popularized by Teresa Torres' *Continuous Discovery Habits*): small, frequent exposure to users prevents the research debt that builds up when studies only happen before major decisions.
+
+**When it fits**:
+- When a team has chronic gaps between research and design — they're always building on stale data
+- When there's appetite to do research but not always the capacity for a full study
+- For mature product areas where ongoing signal is more valuable than one-time discovery
+- At RainFocus: given the ratio of 1 researcher to 9–12 designers, a rolling cadence lets designers stay connected to users without requiring Mick to run every session
+
+**How to conduct well**:
+- Set a weekly or bi-weekly rhythm: one 30–45 minute user conversation per cycle, per team
+- Keep sessions lightweight and exploratory — this is not usability testing; it's staying connected
+- Document findings in the research repository so insights accumulate over time
+- Rotate through personas — don't only talk to the most accessible contacts
+- Use the Client Research Panel to avoid over-contacting the same participants
+
+**Relationship to formal studies**: Continuous discovery supplements but doesn't replace formal research. When a major decision is approaching, the team has recent context and can move faster — and surface signals that warrant a deeper study.
+
+**Outputs**: Ongoing repository of user observations, emergent themes, faster team intuition, earlier detection of problems
+
+**Pitfalls**:
+- Treating it as a box to check rather than a genuine learning practice
+- Letting it replace formal research for high-stakes decisions — a 30-minute weekly call is not a discovery study
+- Failing to synthesize across sessions — the value compounds when you track patterns, not individual conversations
+- Over-recruiting the same contacts for convenience
+
+---
+
+### ALWAYS-ON INTERCEPT SURVEYS
+**Category**: Quantitative / Attitudinal | **Effort**: Low | **Cost**: Very Low
+
+Brief in-product surveys triggered by specific user behaviors or moments — a user completes a task, navigates to a new section, or reaches the end of a flow — to capture real-time attitudinal data at scale.
+
+**When it fits**:
+- When you want continuous attitudinal signal without recruiting participants
+- Post-task: "How easy was it to complete this?" immediately after a user finishes a workflow
+- When you want to measure sentiment changes after a release
+- When you need to identify pain points across a large user base without one-on-one sessions
+
+**At RainFocus**:
+- Most appropriate for the attendee experience — large N, lower relationship stakes
+- Use with significant caution in the admin experience — intercepting a client admin mid-task is a high relationship-cost move. Loop in CSMs before deploying any intercept in the admin platform.
+- Coordinate with product and engineering on implementation — this requires in-product tooling
+
+**How to conduct well**:
+- Keep it to 1–3 questions maximum — any more and users dismiss it
+- Trigger on specific behavioral moments, not random time intervals
+- Combine a rating scale with one open-text field: "How easy was that? / What, if anything, made it difficult?"
+- Review responses regularly and route patterns to the research repository
+
+**Outputs**: Satisfaction/effort scores, pain point signals, open-text themes, release impact measurement
+
+**Pitfalls**:
+- Intercepting users too frequently — survey fatigue kills response rates and user trust
+- Treating scores without reading the open-text responses
+- Deploying in admin flows without CSM buy-in
+
+---
+
+### SUPPORT TICKET / CS CALL MINING
+**Category**: Discovery (Passive) | **Effort**: Low | **Cost**: Very Low
+
+Systematically reviewing existing support tickets, CS call notes, and client feedback to identify recurring pain points, unmet needs, and confusion patterns — without recruiting a single participant. The data already exists; it just needs to be analyzed.
+
+**When it fits**:
+- Before starting a discovery study — mining existing data can sharpen your questions and prevent you from "discovering" things that are already known
+- When you want to identify the highest-frequency pain points across a broad user base
+- When participant access is limited and you need signal fast
+- When scoping what to research next
+
+**At RainFocus**:
+- **Craft.io** is the primary tool — it aggregates client feedback, feature requests, and complaints from across accounts. Always check Craft.io before planning a new study.
+- CS call notes from CSMs and SCs are a rich qualitative source — request access or schedule a synthesis session with a CSM
+- Support tickets surface the failure states users actually encounter, not the ones they predict in interviews
+
+**How to conduct well**:
+- Define a scope before mining: which product area, which time period, which persona?
+- Code tickets by theme: navigation, error states, missing features, confusion, etc.
+- Count frequency — how often does each theme appear?
+- Escalate recurring patterns to the research backlog as candidates for deeper study
+- Share findings with the CS team — they often haven't seen the data aggregated this way
+
+**Outputs**: Frequency-ranked pain point list, themes for interview guides, research backlog candidates
+
+**Pitfalls**:
+- Treating ticket frequency as severity — the loudest feedback isn't always the most important
+- Not distinguishing between support tickets (failure states) and feature requests (aspirational) — different signal types
+- Stopping at the data without follow-on qualitative work to understand root causes
+
+---
+
+### DIARY STUDIES
+**Category**: Discovery | **Effort**: High | **Cost**: Moderate
+
+Participants self-report their experiences over an extended period — typically days or weeks — using written logs, photos, or brief video clips. Unlike a single interview, diary studies capture how a workflow or experience unfolds over time, including the moments between sessions that users forget to mention.
+
+**When it fits**:
+- When the behavior you want to understand spans multiple days or sessions (e.g., how an admin builds and manages an event from kickoff to live)
+- When critical moments happen outside of any single session you could observe
+- When you want to understand patterns, workarounds, or frustrations that only emerge over time
+- When contextual inquiry isn't feasible but in-context data is still needed
+
+**At RainFocus**:
+- Most relevant for the admin persona — event setup is a weeks-long workflow with many distinct phases. A single interview captures a snapshot; a diary study captures the arc.
+- Exhibitors are also a strong candidate: their experience spans pre-event setup, onsite engagement, and post-event lead follow-up
+- Requires more participant commitment — reserve this for engaged, willing participants; use the Client Research Panel to identify them
+
+**How to conduct well**:
+- Define the trigger: what should participants log? ("Each time you use the platform for more than 5 minutes, make a brief entry")
+- Provide a simple logging template: what were you doing, what happened, how did you feel about it
+- Keep the entry format frictionless — a Slack message or voice note is better than a form participants will abandon
+- Check in mid-study to maintain engagement and catch any confusion with the prompt
+- Conduct a follow-up interview at the end to probe the most interesting diary entries
+
+**Outputs**: Longitudinal behavioral data, emotional arc of the workflow, pain points by phase, rich quotes grounded in real moments
+
+**Pitfalls**:
+- Participant dropout — diary studies have high attrition. Recruit 1.5x the sample you need.
+- Vague prompts lead to vague entries — be specific about what you want captured
+- Not conducting a follow-up interview — the diary is raw material, not the final insight
+
+---
+
+### ETHNOGRAPHIC FIELD STUDIES
+**Category**: Discovery | **Effort**: Very High | **Cost**: High
+
+Immersive, extended observation of users in their natural work environment — not just attending an event, but spending sustained time inside a client's world to understand their workflows, culture, context, and constraints from the inside out.
+
+**Relationship to Contextual Inquiry (Onsite)**: Contextual Inquiry at RainFocus means going to a live event, observing and interviewing users in the moment, and then leaving. Ethnographic Field Studies go further: extended time with users across multiple contexts, often spanning pre-event planning, execution, and post-event wrap-up. The commitment — from both researcher and participant — is substantially higher.
+
+**When it fits**:
+- When you need deep understanding of a workflow that spans far more than a single event day
+- When you suspect the product is being used in ways you've never observed — workarounds, manual patches, undocumented processes
+- When designing for a persona whose world you genuinely don't understand yet
+- When a major platform redesign is being considered and you need to be certain you understand the full landscape
+
+**At RainFocus**:
+- Most applicable for the admin/client experience — understanding how a large enterprise event team operates across the full event lifecycle
+- Requires partnership with CSMs and careful relationship management — this level of access needs to be negotiated
+- Rare, but worth it for foundational platform direction decisions
+- Plan 3–6+ months ahead; coordinate with UX management
+
+**How to conduct well**:
+- Enter with curiosity, not hypotheses — the goal is to be surprised
+- Shadow users across multiple work sessions, not just product-use moments
+- Capture everything: physical environment, tools used, communication patterns, workarounds
+- Build rapport over time — trust is what produces candid observation
+- Synthesize across sessions before drawing conclusions
+
+**Outputs**: Rich contextual understanding, workflow documentation, unexpected needs, design principles grounded in real-world constraints
+
+**Pitfalls**:
+- Observer effect — users behave differently when observed. It fades over time; plan for longer immersion.
+- Trying to run an ethnographic study in a two-day site visit — that's contextual inquiry, not ethnography
+- Going in with a design brief rather than genuine curiosity
+
+---
+
+### FEEDBACK SESSIONS / CLIENT ADVISORY BOARDS
+**Category**: Discovery / Strategic | **Effort**: Moderate | **Cost**: Low
+
+Structured sessions with a curated group of clients — typically power users or decision-makers — to gather strategic input on product direction, new concepts, and roadmap priorities. Client Advisory Boards (CABs) are a regular cadence of these sessions with a consistent participant group.
+
+**Relationship to User Interviews**: CABs involve clients speaking as *buyers and strategic partners*, not purely as end users. The input is valuable but filtered through business interests, relationship dynamics, and what clients want to be seen saying. Treat it as a complement to, not a substitute for, direct user research.
+
+**When it fits**:
+- When you need strategic signal about product direction from high-value clients
+- When you want to pressure-test a concept or roadmap item with the people who will champion (or block) its adoption
+- As a relationship investment — clients who feel heard are more likely to participate in follow-on research
+- When PM needs client buy-in before investing in a major feature direction
+
+**At RainFocus**:
+- CSMs are the gatekeepers and relationship owners for CABs — always involve them in planning and facilitation
+- The signal is strategic, not behavioral — clients will tell you what they want, not necessarily what their users need. Use it to identify investigation areas, then go talk to the actual end users.
+- UX should attend and listen actively, but CABs are typically PM/CS-led
+
+**How to conduct well**:
+- Prepare specific questions — open-ended CABs produce pleasant conversation but weak insight
+- Mix concept reactions with underlying-need questions: "What outcome are you trying to achieve?" before "What do you think of this direction?"
+- Synthesize separately from individual feedback — what patterns emerge across participants?
+- Loop findings back to Craft.io and the research repository
+
+**Outputs**: Strategic priorities, concept reactions, relationship intelligence, follow-on research candidates
+
+**Pitfalls**:
+- Taking feature requests at face value — clients ask for solutions; your job is to uncover the underlying need
+- Letting the most vocal client dominate the direction
+- Treating CAB output as validated user needs — it's a starting point, not a conclusion
+- Forgetting that what clients say in a strategic session may not reflect what their users actually experience
+
+---
+
+### OBSERVATION (SCREEN RECORDING / SESSION REPLAY)
+**Category**: Behavioral / Evaluative | **Effort**: Low | **Cost**: Low
+
+Watching recordings of real user sessions in the product — using tools like FullStory or LogRocket — to observe actual behavior without facilitating a session. Users navigate naturally, without being observed in real time.
+
+**When it fits**:
+- When you want behavioral data at scale without recruiting participants
+- When you suspect a specific friction point and want to see how users actually encounter it
+- As a complement to analytics: Amplitude shows you *where* users drop off; session recordings show you *what happens right before they do*
+- When you want to identify rage clicks, confusion patterns, or unexpected navigation paths
+
+**At RainFocus**:
+- Check with engineering on tooling availability — FullStory or equivalent may already be deployed
+- Most applicable in the admin experience, where workflows are complex enough to generate interesting behavioral data
+- Privacy and client data considerations apply — ensure recordings are anonymized and compliant before reviewing
+
+**How to conduct well**:
+- Don't watch recordings randomly — start with a hypothesis and filter accordingly
+- Watch in batches of 5–10 sessions; note recurring patterns
+- Use the rage click and error filters in most tools to jump straight to friction moments
+- Clip and annotate key moments for sharing with the team
+
+**Outputs**: Friction hotspots, unexpected navigation patterns, evidence for or against hypotheses, shareable clips for stakeholder communication
+
+**Pitfalls**:
+- Watching without a hypothesis — you'll drown in footage and find everything and nothing
+- Over-indexing on outlier sessions that confirm what you wanted to see
+- Forgetting that absence of visible struggle doesn't mean the design is good — users who can't figure it out often just leave
+
+---
+
+### PERSONAS / ARCHETYPES
+**Category**: Synthesis / Framework | **Effort**: Moderate | **Cost**: Low
+
+Composite representations of key user types, synthesized from research data — interviews, observations, analytics — to give the team a shared, memorable model of who they're designing for. At RainFocus, personas already exist for the core user types; this entry is about when and how to build or update them.
+
+**Personas vs. Archetypes**:
+- *Personas*: Research-grounded, specific, tied to real behavioral patterns. Named, with goals, frustrations, and context.
+- *Archetypes*: More abstract — pattern types that transcend a specific company or role. Useful when the user base is too diverse for tightly defined personas.
+
+**When it fits**:
+- After a significant body of discovery research, when patterns have emerged across multiple participants
+- When the team is misaligned about who they're designing for — a shared persona creates a shared reference
+- When onboarding new designers or PMs to an unfamiliar product area
+- When existing personas feel stale or disconnected from current user reality
+
+**At RainFocus**:
+- Core personas exist for Admin, Attendee, and Exhibitor — before creating a new persona, assess whether updating an existing one is more appropriate
+- Personas should cite the research they're built from — a persona without a research foundation is just a character sketch. It can mislead more than it helps.
+- Use personas to anchor co-design workshops, usability testing planning, and cognitive walkthroughs
+
+**How to conduct well**:
+- Build from affinity-mapped research data, not team assumptions
+- Include: goals, frustrations, key behaviors, context (tools, environment, technical sophistication), and a representative quote
+- Keep it to 1 page — personas that require a deep read don't get used
+- Validate against the research data: can you point to specific participants who map to this pattern?
+
+**Outputs**: 1-page persona artifacts, updated design system reference, team alignment on user types
+
+**Pitfalls**:
+- Building personas from assumptions rather than research — "assumptive personas" are worse than no personas at all
+- Creating too many — 3–5 distinct personas is the right range. More than that and the distinctions stop being actionable.
+- Treating personas as permanent — they need to be updated as new research accumulates
+
+---
+
+### SERVICE BLUEPRINTING
+**Category**: Synthesis / Framework | **Effort**: High | **Cost**: Low
+
+An extension of journey mapping that captures not just what users experience (frontstage) but what happens behind the scenes to make that experience possible (backstage). Service blueprints map the full system: user actions, touchpoints, frontstage staff actions, backstage processes, and support systems — all in one view.
+
+**When it fits**:
+- When a user problem can't be solved without also understanding internal processes and handoffs
+- When a journey map exists but doesn't explain *why* certain pain points persist — the answer is usually backstage
+- When designing experiences that involve multiple internal teams (e.g., a new exhibitor onboarding flow that touches CS, SC, EDC, and the product)
+- When major workflow redesigns risk breaking downstream processes — a blueprint surfaces those dependencies
+
+**At RainFocus**:
+- The RainFocus delivery model is unusually complex — SCs, SAs, EDCs, CSMs, and IEs all play roles in delivering the client experience. A service blueprint is one of the few tools that can hold that complexity at once.
+- Especially valuable for onsite operational experiences, where the line between product and people is blurry
+- Run as a facilitated workshop with the right mix of internal SMEs — don't attempt to build a blueprint without people who know the backstage
+
+**How to conduct well**:
+- Start with a defined scenario: which persona, which journey, start to finish
+- Structure the blueprint in horizontal swim lanes: User actions → Frontstage touchpoints → Line of visibility → Backstage actions → Support systems/tools
+- Facilitate collaboratively — no single person knows all the backstage processes. Build it with SCs, EDCs, CSMs, and PMs in the room.
+- Identify failure points: where do backstage breakdowns surface as frontstage friction?
+- Link to journey map data where it exists
+
+**Outputs**: Service blueprint artifact, identified system failure points, cross-team alignment on process, prioritized backstage improvement areas
+
+**Pitfalls**:
+- Building it without the right SMEs in the room — you'll get an incomplete picture of backstage reality
+- Conflating service blueprinting with journey mapping — they're related but answer different questions
+- Creating a beautiful artifact that sits in a file and never drives a process change (Outcomes Over Outputs)
+
+---
+
 ## METHOD RELATIONSHIPS
 
 Some methods are commonly sequenced together. Know these pairings:
@@ -470,6 +962,13 @@ Some methods are commonly sequenced together. Know these pairings:
 - **Cognitive Walkthrough / Heuristic Evaluation → Usability Testing**: Expert reviews clean up obvious issues first; usability testing surfaces what only real users can find
 - **Co-Design Workshop → Prototype → Usability Testing**: Workshops generate directions; prototypes make them testable; usability tests validate them
 - **First Click Testing → Usability Testing**: First click catches navigation issues early; usability testing goes deeper
+- **Support Ticket / CS Call Mining → User Interviews**: Tickets surface the *what*; interviews uncover the *why*
+- **Analytics / Behavioral Analysis → User Interviews**: Behavioral data flags where problems exist; qualitative research explains them
+- **Observation (Screen Recording) → Usability Testing**: Session replay identifies friction patterns at scale; moderated testing explains root causes
+- **User Interviews / Affinity Mapping → Personas / Archetypes**: Discovery research generates the raw material; personas synthesize it into a shared team model
+- **Journey Mapping → Service Blueprinting**: Journey maps capture the user experience; service blueprinting adds the backstage system that produces it
+- **Usability Testing → Benchmarking (SUS)**: Administer a SUS survey at the close of usability sessions to build quantitative baseline data over time
+- **Concept Testing → Usability Testing (lo/mid-fi) → Usability Testing (hi-fi)**: Test the idea before you build it; validate the rough form before committing to the final form
 
 ---
 
@@ -495,3 +994,6 @@ You are helpful but direct. You care about research quality and won't let a desi
 Match the depth of your coaching to the stakes of the decision. A small UI change might only need a first click test. A major workflow redesign warrants a fuller discovery process.
 
 When you don't know something specific about the RainFocus platform, say so and ask the designer for context rather than making assumptions.
+
+### Go beyond the knowledge base when the situation calls for it
+The methodology knowledge base in this skill is a starting point, not a ceiling. If a designer's situation calls for a method not documented here — participatory action research, experience sampling, value proposition testing, longitudinal panel studies, or anything else — recommend it. Apply the same rigor: explain why it fits, what it will and won't tell them, and what the trade-offs are. The goal is the best research for the situation, not the nearest match from a list.

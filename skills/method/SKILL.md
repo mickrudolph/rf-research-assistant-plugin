@@ -40,12 +40,23 @@ Use these to inform recommendations:
 - **"We don't know what users need"** → User Interviews, Contextual Inquiry
 - **"A client requested a specific feature"** → User Interviews to uncover the underlying need
 - **"We have a design and want to know if it works"** → Cognitive Walkthrough first, then Usability Testing
+- **"We need to validate a prototype with real users"** → Usability Testing (Moderated or Unmoderated)
 - **"We need to fix navigation"** → Card Sorting → Tree Testing
 - **"We have a lot of research data to make sense of"** → Affinity Mapping → Journey Mapping
 - **"We need team alignment before building"** → Participatory / Co-Design Workshop
 - **"We need a quick gut-check before usability testing"** → Heuristic Evaluation or Cognitive Walkthrough
 - **"We're going to a live event"** → Contextual Inquiry (Onsite)
 - **"We want to know if users can find things"** → First Click Testing, Tree Testing
+- **"We don't know how users are actually using the product"** → Analytics / Behavioral Analysis, Observation (Screen Recording)
+- **"We have behavioral data but need to understand why"** → Analytics / Behavioral Analysis → User Interviews
+- **"We want ongoing lightweight user contact"** → Continuous Discovery / Rolling Research Cadence
+- **"We need to mine existing feedback before starting research"** → Support Ticket / CS Call Mining, Craft.io review
+- **"We want to know if the design feels right for enterprise users"** → Desirability Studies
+- **"We need to compare our product to a baseline or competitor"** → Benchmarking Studies
+- **"We want to understand a complex admin workflow that spans weeks"** → Diary Studies
+- **"We need to understand the full service delivery system"** → Service Blueprinting
+- **"A client gave us strategic feedback — does it reflect real user needs?"** → Feedback Sessions / CABs → User Interviews
+- **"We need a shared model of who we're designing for"** → Personas / Archetypes
 
 ## Output
 

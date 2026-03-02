@@ -17,7 +17,7 @@ The RainFocus research assistant can help any designer on the team do better res
 
 **Pressure-test a plan you've already written.** Hand it your draft plan and it'll critique it honestly — flagging weak objectives, leading questions, scope issues, or a hypothesis that can't actually be disproven. Better to hear it from Claude before you're in a session.
 
-**Recommend the right method for your situation.** Describe where you are in the design process and what you're trying to learn, and it'll recommend a method from our actual methodology library with a rationale and trade-offs — not a generic answer from the internet.
+**Recommend the right method for your situation.** Describe where you are in the design process and what you're trying to learn, and it'll recommend a method — or a sequence of methods — with a rationale and honest trade-offs. The methodology library covers 25 methods across the full research spectrum: passive behavioral analysis, quantitative attitudinal methods, longitudinal discovery, synthesis frameworks, and more. And if your situation calls for something outside the library entirely, it'll tell you that too.
 
 **Help you synthesize after a study.** Paste in raw notes or observations and it'll help you structure findings, identify patterns, surface the so-what, and frame things in a way that's useful for PMs and stakeholders.
 
