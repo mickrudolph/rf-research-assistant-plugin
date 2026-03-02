@@ -88,9 +88,7 @@ First-time authentication: After installing, the first time you use the plugin C
 
 The first time you use the plugin, Claude will prompt you to authenticate each connected tool. You'll need to log in to:
 
-- **Figma** — your RF Figma account
 - **Amplitude** — your RF Amplitude account
-- **Google Calendar** — your work Google account
 - **Atlassian** — your RF credentials for Confluence and Jira (OAuth flow)
 
 This only happens once per tool. After that, Claude pulls context from them automatically.
