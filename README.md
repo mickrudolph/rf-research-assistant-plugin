@@ -34,24 +34,6 @@ Works in Claude Code CLI, Claude Desktop (Cowork tab), and Claude Desktop (Code 
 
 ### Method #1 — Claude Code CLI
 
-<!--
-**Prerequisites**
-
-Make sure you're authenticated with GitHub over HTTPS:
-
-```bash
-brew install gh
-gh auth login
-```
-
-Choose **HTTPS** when prompted. Then configure git to use HTTPS for GitHub:
-
-```bash
-git config --global url."https://github.com/".insteadOf "git@github.com:"
-```
--->
-
-
 **Install**
 
 1. Add the marketplace:
@@ -92,8 +74,13 @@ Clean uninstall, no residue. Reinstall any time with the same commands from abov
 **Requirements:** Claude Pro, Max, Team, or Enterprise plan.
 Works with Claude Cowork & Claude Code
 
-1. Download the folder from this github file
-2. Customize > Personal plugins > Add plugin > Upload plugin
+In Claude, go to Customize → Personal plugins → Add plugin → Add marketplace
+Enter: mickrudolph/rf-research-assistant-plugin
+Once the marketplace is added, find rf-research in the plugin list and click install
+
+To update the plugin later (after you push changes to GitHub):
+Go to Customize → Personal plugins, find the marketplace, and hit update — no reinstall needed.
+First-time authentication: After installing, the first time you use the plugin Claude will prompt you to authenticate Amplitude and Atlassian (Confluence/Jira). That's a one-time step per tool.
 
 ---
 
