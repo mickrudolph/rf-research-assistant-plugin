@@ -13,12 +13,27 @@ Help the user figure out which research method fits their specific question, con
 
 ## How to run it
 
-Ask the user:
-1. What are you trying to learn or decide?
-2. Where are you in the design process? (early discovery, refining a design, pre-launch validation, post-launch?)
-3. Who are the users involved? (attendees, exhibitors, admins, internal SMEs?)
-4. What constraints exist? (time, budget, participant access, team appetite for research?)
-5. What do you already know? (prior research, data from Amplitude, client feedback?)
+Use the `AskUserQuestion` tool to gather structured intake before recommending. Present these as interactive prompts, not plain text:
+
+**Question 1: Where are you in the design process?**
+Options:
+- Early discovery — no designs yet, still defining the problem
+- Mid-design — exploring solutions, need directional input
+- Pre-launch validation — high confidence needed before handing off to dev
+- Post-launch — product is live, evaluating or iterating
+
+**Question 2: Who are the primary users involved?**
+Options:
+- Attendees
+- Exhibitors
+- Admins / event organizers (clients)
+- Internal RainFocus staff (CSMs, SCs, SAs, etc.)
+- Mixed / multiple user types
+
+After gathering those answers via the tool, continue as plain text to understand:
+- What they're trying to learn or decide
+- What constraints exist (time, budget, participant access, team appetite)
+- What they already know (prior research, Amplitude data, client feedback)
 
 ## How to recommend
 

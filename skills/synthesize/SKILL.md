@@ -13,11 +13,27 @@ Guide the user through structuring, interpreting, and communicating what they le
 
 ## How to run it
 
-Ask the user:
-1. What method did you use? (interviews, usability test, contextual inquiry, etc.)
-2. What were your original learning objectives?
-3. What's your raw data situation? (notes, recordings, sticky notes, transcripts?)
-4. Who needs to see the findings, and what decisions will they inform?
+Use the `AskUserQuestion` tool to gather structured intake before proceeding. Present these as interactive prompts, not plain text:
+
+**Question 1: What research method did you use?**
+Options:
+- User interviews
+- Usability testing / prototype testing
+- Heuristic evaluation or cognitive walkthrough
+- Card sorting or tree testing
+- Affinity mapping / co-design workshop
+- Other
+
+**Question 2: What's your raw data situation?**
+Options:
+- Notes or transcripts (organized and ready)
+- Recordings only (not yet transcribed or reviewed)
+- Sticky notes or FigJam clusters
+- It's mostly in my head — I need help structuring it
+
+After gathering those answers via the tool, continue the conversation to understand:
+- What their original learning objectives were
+- Who needs to see the findings and what decisions they'll inform
 
 ## Synthesis guidance by method
 

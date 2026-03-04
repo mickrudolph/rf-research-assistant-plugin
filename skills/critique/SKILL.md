@@ -13,10 +13,25 @@ Act as a rigorous but constructive reviewer. The goal is to catch problems befor
 
 ## How to run it
 
-Ask the user to paste or describe:
-- Their research question or plan
-- The method they're planning to use
-- Who they're planning to talk to
+Use the `AskUserQuestion` tool to gather structured intake before proceeding. Present these as interactive prompts, not plain text:
+
+**Question 1: What do you have so far?**
+Options:
+- A written research plan (ready to share)
+- A rough idea or brief
+- Just a research question or hypothesis
+- I haven't started yet
+
+**Question 2: What method are you planning to use?**
+Options:
+- User interviews
+- Usability testing / prototype testing
+- Survey or screener
+- Heuristic evaluation or cognitive walkthrough
+- Not sure yet
+- Other
+
+Use the answers to tailor your approach — if they only have a question or haven't started, help them build the plan before critiquing it. Then ask the user to share or describe whatever they have (their research question, plan, method, and intended participants).
 
 Then evaluate across these dimensions:
 

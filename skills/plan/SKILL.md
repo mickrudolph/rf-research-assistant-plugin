@@ -13,8 +13,15 @@ Walk the user through each component of a solid research plan, one step at a tim
 
 ## Step 0: Establish what kind of research this is
 
-First, ask:
-- Are you doing **discovery** (learning about user needs, problems, behaviors) or **validation/usability testing** (testing a prototype or design)?
+Use the `AskUserQuestion` tool to present this as an interactive prompt, not plain text:
+
+**What type of research is this?**
+Options:
+- Discovery — learning about user needs, problems, or behaviors
+- Validation / Usability Testing — testing a prototype or design
+- Not sure yet
+
+If they select "Not sure yet," ask a follow-up (as plain text): "Do you have something to show users, or are you still trying to understand the problem space?" Then guide them to the right type.
 
 This determines which template to use and who owns it:
 - **Discovery**: PMs own it. UX drives, encourages, and supports. If a designer is initiating discovery without a PM looped in, flag this.
