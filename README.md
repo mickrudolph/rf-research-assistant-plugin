@@ -7,7 +7,7 @@
 
 The RainFocus Research Assistant is a custom Claude plugin built specifically for our team. It isn't generic Claude — it's been trained on our research process, our methodology library, our role definitions across the CS org, how our clients work, and the way we think about building product at RainFocus. This plugin also has access to Confluence data, so it can quickly get context for whatever you're working on regarding RainFocus Admin and the RainFocus product. The RainFocus Research Assistant can also pull and synthesize Amplitude data to help answer research questions.
 
-The RainFocus research assistant can help any designer on the team do better research, faster. Whether you've never run a user interview before or you just need a second set of eyes on a study plan before you put it in front of participants, this is for you.
+The RainFocus research assistant can help any designer on the team do better research, faster. Whether you've never run a user interview before or you just need a second set of eyes on a study plan before you put it in front of participants, this plugin is for you.
 
 ---
 
