@@ -1,0 +1,8 @@
+{
+  "name": "rf-style-guide",
+  "version": "1.0.0",
+  "description": "Write and review content adhering to the RainFocus Written Style Guide. Helps with voice, tone, grammar, capitalization, and brand consistency.",
+  "author": {
+    "name": "Mick Rudolph"
+  }
+}
