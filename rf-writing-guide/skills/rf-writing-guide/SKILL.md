@@ -1,10 +1,10 @@
 ---
-name: style-guide
+name: rf-writing-guide
 description: |
-  Write and review content adhering to the RainFocus Written Style Guide. Use this skill when the user wants to write new content, review existing content for style compliance, or get guidance on RainFocus writing conventions. Triggers when user mentions style guide, writing review, or runs /style-guide.
+  Write and review content adhering to the RainFocus Written Style Guide. Use this skill when the user wants to write new content, review existing content for style compliance, or get guidance on RainFocus writing conventions. Triggers when user mentions writing guide, writing review, or runs /rf-writing-guide.
 ---
 
-# RainFocus Style Guide Skill
+# RainFocus Writing Guide Skill
 
 This skill helps you write and review content according to the RainFocus Written Style Guide. It ensures voice, tone, grammar, capitalization, punctuation, and brand consistency across all written materials.
 
@@ -292,7 +292,7 @@ Need anything else?
 
 ### Example 1: Content Review
 
-**User:** `/style-guide`
+**User:** `/rf-writing-guide`
 
 **Skill:** Would you like me to (1) review existing content, (2) write new content, or (3) answer a style question?
 

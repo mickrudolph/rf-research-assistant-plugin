@@ -1,10 +1,10 @@
-# RainFocus Style Guide Plugin
+# RainFocus Writing Guide Plugin
 
 A lightweight Claude plugin that helps you write and review content according to the RainFocus Written Style Guide.
 
 ## What does it do?
 
-This plugin provides a `/style-guide` skill that helps with:
+This plugin provides a `/rf-writing-guide` skill that helps with:
 
 - **Reviewing existing content** for style guide compliance
 - **Writing new content** following RainFocus voice, tone, and formatting standards
@@ -15,14 +15,14 @@ This plugin provides a `/style-guide` skill that helps with:
 If you already have the `rf-research-assistant` marketplace installed, simply install this plugin:
 
 ```bash
-/plugin install rf-style-guide@rf-research-assistant
+/plugin install rf-writing-guide@rf-research-assistant
 ```
 
 If you don't have the marketplace yet, add it first:
 
 ```bash
 /plugin marketplace add https://github.com/mickrudolph/rf-research-assistant-plugin.git
-/plugin install rf-style-guide@rf-research-assistant
+/plugin install rf-writing-guide@rf-research-assistant
 ```
 
 ## Usage
@@ -30,7 +30,7 @@ If you don't have the marketplace yet, add it first:
 Simply invoke the skill:
 
 ```bash
-/style-guide
+/rf-writing-guide
 ```
 
 Claude will ask whether you want to:
