@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 /Users/mick.rudolph/.claude/skills/rf-research-report/generate_html.py \"/Users/mick.rudolph/rf/projects/testing_versioning/report-testing-versioning-2026-03-27/report-testing-versioning-2026-03-27.md\" --no-open)"
+    ]
+  }
+}

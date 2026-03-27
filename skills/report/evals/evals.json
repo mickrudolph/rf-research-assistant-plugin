@@ -1,0 +1,23 @@
+{
+  "skill_name": "rf-research:report",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a stakeholder report from the testing & versioning synthesis document at /Users/mick.rudolph/rf/projects/testing_versioning/meeting-notes/discovery/SYNTHESIS.md",
+      "expected_output": "A 2-3 page executive-ready markdown report with: (1) verdict and recommendations leading, (2) 3-5 key findings with confidence levels and killer quotes, (3) validation matrix showing consensus, (4) 'What We Don't Know Yet' section, (5) SCQA narrative arc, (6) strong visual hierarchy. Should compress the synthesis into scannable format while maintaining all critical insights.",
+      "files": ["/Users/mick.rudolph/rf/projects/testing_versioning/meeting-notes/discovery/SYNTHESIS.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "I need an executive summary from this research: /Users/mick.rudolph/rf/projects/testing_versioning/meeting-notes/discovery/SYNTHESIS.md. Make it something I can send to Alexandra (PM) and Parker (UX) to decide if we should proceed with the feature.",
+      "expected_output": "Executive-focused report that answers 'should we proceed?' with clear YES/NO verdict backed by validated findings. Recommendations should be actionable and tied to confidence levels. Should help decision-makers understand the business case without needing to read 12 pages of synthesis.",
+      "files": ["/Users/mick.rudolph/rf/projects/testing_versioning/meeting-notes/discovery/SYNTHESIS.md"]
+    },
+    {
+      "id": 3,
+      "prompt": "Can you turn the testing & versioning research into a stakeholder report? The synthesis is at /Users/mick.rudolph/rf/projects/testing_versioning/meeting-notes/discovery/SYNTHESIS.md. Save it in the same directory.",
+      "expected_output": "Stakeholder report saved to /Users/mick.rudolph/rf/projects/testing_versioning/meeting-notes/discovery/ with filename format 'report-testing-versioning-[date].md'. Report should follow all design principles: inverted structure, SCQA framework, confidence levels, killer quotes, validation matrix.",
+      "files": ["/Users/mick.rudolph/rf/projects/testing_versioning/meeting-notes/discovery/SYNTHESIS.md"]
+    }
+  ]
+}

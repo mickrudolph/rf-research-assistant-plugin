@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{HEADER_SUBTITLE}} - Stakeholder Report</title>
+  <style>
+{{CSS}}
+  </style>
+</head>
+<body>
+<div id="edit-banner">✏️ Edit mode — click any highlighted text to edit. Click the book icon to save &amp; exit.</div>
+<header style="background: #E71356; color: white; padding: 1.5rem 2rem; margin: -2rem -1rem 2rem -1rem; display: flex; align-items: center; gap: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+  <img src="{{LOGO_URI}}" alt="RainFocus" style="width: 48px; height: 48px; border-radius: 8px;">
+  <div style="flex: 1;">
+    <h1 style="font-size: 1.5rem; font-weight: 600; margin: 0; color: white;">{{HEADER_TITLE}}</h1>
+    <div style="font-size: 0.875rem; opacity: 0.9;">{{HEADER_SUBTITLE}}</div>
+  </div>
+  <button id="edit-toggle" title="Edit report" style="background: none; border: none; padding: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; opacity: 1;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+    <svg id="icon-pencil" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+    <svg id="icon-book" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+  </button>
+</header>
+
+  <div class="report-container">
+{{CONTENT}}
+  </div>
+
+  <div id="edit-toast"></div>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    document.querySelectorAll('summary').forEach(summary => {
+      summary.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+
+    // ── Edit mode ──
+    const EDITABLE_SELECTOR = '.report-container p, .report-container li, .report-container blockquote p, .report-container cite, .report-container h1, .report-container h2, .report-container h3, .report-container h4, .report-container td, .report-container .verdict p, .report-container .metadata span';
+    const btn = document.getElementById('edit-toggle');
+    const iconPencil = document.getElementById('icon-pencil');
+    const iconBook = document.getElementById('icon-book');
+    const banner = document.getElementById('edit-banner');
+    const toast = document.getElementById('edit-toast');
+    let isEditing = false;
+    let fileHandle = null;
+
+    function hasFileSystemAccess() {
+      return 'showSaveFilePicker' in window;
+    }
+
+    function showToast(msg, duration = 3000) {
+      toast.textContent = msg;
+      toast.classList.add('visible');
+      setTimeout(() => toast.classList.remove('visible'), duration);
+    }
+
+    function enterEditMode() {
+      isEditing = true;
+      document.body.classList.add('edit-mode');
+      document.querySelectorAll(EDITABLE_SELECTOR).forEach(el => {
+        // Don't make interactive elements editable
+        if (!el.closest('summary') && !el.closest('#edit-toggle')) {
+          el.setAttribute('contenteditable', 'true');
+        }
+      });
+      iconPencil.style.display = 'none';
+      iconBook.style.display = 'block';
+      banner.classList.add('visible');
+      btn.title = 'Save & exit edit mode';
+    }
+
+    function exitEditMode() {
+      // Strip contenteditable before saving
+      document.querySelectorAll('[contenteditable]').forEach(el => {
+        el.removeAttribute('contenteditable');
+      });
+      document.body.classList.remove('edit-mode');
+      banner.classList.remove('visible');
+      iconPencil.style.display = 'block';
+      iconBook.style.display = 'none';
+      btn.title = 'Edit report';
+      isEditing = false;
+    }
+
+    async function saveFile() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      try {
+        if (!fileHandle) {
+          fileHandle = await window.showSaveFilePicker({
+            suggestedName: document.title.replace(/[^a-zA-Z0-9-_ ]/g, '') + '.html',
+            types: [{ description: 'HTML', accept: { 'text/html': ['.html'] } }]
+          });
+        }
+        const writable = await fileHandle.createWritable();
+        await writable.write(html);
+        await writable.close();
+        showToast('✓ Changes saved');
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          showToast('Save failed: ' + err.message, 5000);
+        }
+      }
+    }
+
+    btn.addEventListener('click', async () => {
+      if (!isEditing) {
+        if (!hasFileSystemAccess()) {
+          showToast('Editing requires a Chromium-based browser (Chrome, Edge, Arc, Brave)', 4000);
+          return;
+        }
+        enterEditMode();
+      } else {
+        await saveFile();
+        exitEditMode();
+      }
+    });
+  </script>
+</body>
+</html>
