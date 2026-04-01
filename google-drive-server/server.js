@@ -12,6 +12,11 @@ import * as fs from "fs/promises";
 import * as path from "path";
 import * as os from "os";
 import * as http from "http";
+import { fileURLToPath } from "url";
+
+// Define __dirname for ES modules (needed for ncc bundling)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // --- Config ---
 
@@ -82,6 +87,35 @@ async function getAuthenticatedClient() {
 }
 
 // --- Google Drive helpers ---
+
+// Format mappings for Google Workspace file exports
+const FORMAT_MAPPINGS = {
+  // Google Docs
+  "application/vnd.google-apps.document": {
+    docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    pdf: "application/pdf",
+    odt: "application/vnd.oasis.opendocument.text",
+    txt: "text/plain",
+    rtf: "application/rtf",
+    html: "text/html",
+    epub: "application/epub+zip",
+  },
+  // Google Sheets
+  "application/vnd.google-apps.spreadsheet": {
+    xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    pdf: "application/pdf",
+    ods: "application/vnd.oasis.opendocument.spreadsheet",
+    csv: "text/csv",
+    tsv: "text/tab-separated-values",
+  },
+  // Google Slides
+  "application/vnd.google-apps.presentation": {
+    pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    pdf: "application/pdf",
+    odp: "application/vnd.oasis.opendocument.presentation",
+    txt: "text/plain",
+  },
+};
 
 async function getDrive() {
   const auth = await getAuthenticatedClient();
@@ -169,7 +203,7 @@ async function getSlidesContent(fileId) {
 
 // --- Tool definitions ---
 
-const AUTH_SCRIPT = path.resolve(import.meta.dirname, "auth.js");
+const AUTH_SCRIPT = path.join(__dirname, "auth.js");
 
 const TOOLS = [
   {
@@ -228,6 +262,29 @@ const TOOLS = [
         fileId: {
           type: "string",
           description: "The Google Drive file ID",
+        },
+      },
+      required: ["fileId"],
+    },
+  },
+  {
+    name: "download_file",
+    description:
+      "Download a file from Google Drive to the local filesystem. Supports format conversion for Google Workspace files (Docs, Sheets, Slides). For Google Docs: docx, pdf, odt, txt, rtf, html, epub. For Google Sheets: xlsx, pdf, ods, csv, tsv. For Google Slides: pptx, pdf, odp, txt. Regular files download in their original format.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        fileId: {
+          type: "string",
+          description: "The Google Drive file ID",
+        },
+        format: {
+          type: "string",
+          description: "Export format (e.g., 'pdf', 'docx', 'xlsx'). Optional for regular files, required for Google Workspace files if you want a specific format. Defaults to native format.",
+        },
+        outputPath: {
+          type: "string",
+          description: "Full path where the file should be saved (e.g., '/Users/username/Desktop/myfile.pdf'). If not provided, saves to user's Desktop.",
         },
       },
       required: ["fileId"],
@@ -374,10 +431,80 @@ async function handleReadFile({ fileId }) {
   return `# ${name}\n\n${res.data}`;
 }
 
+async function handleDownloadFile({ fileId, format, outputPath }) {
+  const drive = await getDrive();
+  const meta = await drive.files.get({
+    fileId,
+    fields: "id, name, mimeType",
+  });
+
+  const mimeType = meta.data.mimeType;
+  const name = meta.data.name;
+  const isGoogleWorkspaceFile = FORMAT_MAPPINGS[mimeType];
+
+  // Determine output path
+  let finalPath = outputPath;
+  if (!finalPath) {
+    const desktop = path.join(os.homedir(), "Desktop");
+    // Generate filename with extension
+    let extension = "";
+    if (format) {
+      extension = `.${format}`;
+    } else if (!isGoogleWorkspaceFile) {
+      // Extract extension from original filename
+      const ext = path.extname(name);
+      extension = ext || "";
+    } else {
+      // Default format for Google Workspace files
+      if (mimeType === "application/vnd.google-apps.document") extension = ".docx";
+      else if (mimeType === "application/vnd.google-apps.spreadsheet") extension = ".xlsx";
+      else if (mimeType === "application/vnd.google-apps.presentation") extension = ".pptx";
+    }
+    const baseName = path.basename(name, path.extname(name));
+    finalPath = path.join(desktop, `${baseName}${extension}`);
+  }
+
+  let fileData;
+
+  if (isGoogleWorkspaceFile) {
+    // Export Google Workspace file with format conversion
+    if (!format) {
+      // Default formats
+      if (mimeType === "application/vnd.google-apps.document") format = "docx";
+      else if (mimeType === "application/vnd.google-apps.spreadsheet") format = "xlsx";
+      else if (mimeType === "application/vnd.google-apps.presentation") format = "pptx";
+    }
+
+    const exportMimeType = FORMAT_MAPPINGS[mimeType][format];
+    if (!exportMimeType) {
+      const availableFormats = Object.keys(FORMAT_MAPPINGS[mimeType]).join(", ");
+      return `Invalid format '${format}' for this file type. Available formats: ${availableFormats}`;
+    }
+
+    const res = await drive.files.export(
+      { fileId, mimeType: exportMimeType },
+      { responseType: "arraybuffer" }
+    );
+    fileData = Buffer.from(res.data);
+  } else {
+    // Download regular file
+    const res = await drive.files.get(
+      { fileId, alt: "media" },
+      { responseType: "arraybuffer" }
+    );
+    fileData = Buffer.from(res.data);
+  }
+
+  // Save to disk
+  await fs.writeFile(finalPath, fileData);
+
+  return `File downloaded successfully to: ${finalPath}`;
+}
+
 // --- MCP Server ---
 
 const server = new Server(
-  { name: "rf-google-drive", version: "1.0.0" },
+  { name: "rf-google-drive", version: "1.1.0" },
   { capabilities: { tools: {} } }
 );
 
@@ -429,6 +556,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         break;
       case "read_file":
         result = await handleReadFile(args);
+        break;
+      case "download_file":
+        result = await handleDownloadFile(args);
         break;
       default:
         return {
