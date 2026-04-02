@@ -7,6 +7,18 @@ description: Guide the user through building a complete research plan before the
 
 Guide the user through building a complete research plan before they start any study.
 
+---
+
+## 📚 Knowledge Directory
+
+**If you need deeper context while building a plan:**
+- RainFocus research principles & design philosophy → `../../context/rainfocus-overview.md`
+- CS role definitions (for co-design planning) → `../../context/cs-roles.md`
+- Method selection guidance → `../../context/methodology-quick-reference.md`
+- Detailed method documentation → `../../context/research-methods/[category].md`
+
+---
+
 ## What this command does
 
 Walk the user through each component of a solid research plan, one step at a time. Don't dump everything at once — ask, listen, build together.

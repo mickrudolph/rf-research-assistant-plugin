@@ -7,6 +7,18 @@ description: Pressure-test a research plan or question before the user runs the 
 
 Pressure-test a research plan or question before the user runs the study.
 
+---
+
+## 📚 Knowledge Directory
+
+**If you need deeper context while critiquing:**
+- RainFocus design principles → `../../context/rainfocus-overview.md`
+- Method fit evaluation → `../../context/methodology-quick-reference.md`
+- Detailed method documentation → `../../context/research-methods/[category].md`
+- CS roles (for co-design critique) → `../../context/cs-roles.md`
+
+---
+
 ## What this command does
 
 Act as a rigorous but constructive reviewer. The goal is to catch problems before participant time is spent, not to be discouraging. Be direct. Flag real issues. Offer fixes.

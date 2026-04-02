@@ -9,6 +9,14 @@ Transform comprehensive synthesis documents (10-12 pages) into executive-ready s
 
 **Key Focus:** Reports must be highly design-centric. Every finding should explicitly guide what to do in design. The big output is: **"What design principle can I take into the next phase?"** Whether moving from discovery to early concept, or from testing to iterative designs, stakeholders need clear design implications in the format: "users felt X about Y, therefore in our designs we should... Z."
 
+---
+
+## 📚 Knowledge Directory
+
+**When creating reports:**
+- RainFocus design principles → `../../context/rainfocus-overview.md`
+- Synthesis methods → `../../context/research-methods/synthesis-methods.md`
+
 ## Core Principles
 
 Your output must follow these research-backed principles:

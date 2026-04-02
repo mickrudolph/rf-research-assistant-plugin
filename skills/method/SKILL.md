@@ -7,6 +7,22 @@ description: Recommend the right research method(s) for a given situation.
 
 Recommend the right research method(s) for a given situation.
 
+---
+
+## 📚 Knowledge Directory
+
+**When recommending methods:**
+- Situation-to-method mapping → `../../context/methodology-quick-reference.md`
+- Detailed method documentation:
+  - Discovery methods: `../../context/research-methods/discovery-methods.md`
+  - Validation methods: `../../context/research-methods/validation-methods.md`
+  - Synthesis methods: `../../context/research-methods/synthesis-methods.md`
+  - Quantitative methods: `../../context/research-methods/quantitative-methods.md`
+  - Workshop methods: `../../context/research-methods/workshop-methods.md`
+- CS roles (for co-design recommendations) → `../../context/cs-roles.md`
+
+---
+
 ## What this command does
 
 Help the user figure out which research method fits their specific question, constraints, and stage in the design process. Don't just name a method — explain why it fits, what it will and won't tell them, and what the alternatives are.

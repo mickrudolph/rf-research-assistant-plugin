@@ -7,6 +7,17 @@ description: Transform raw research data into structured, actionable findings wi
 
 Transform raw research data into structured, actionable findings. This skill reads your transcripts, extracts observations, generates powerful insights that explain user behavior, and produces comprehensive analysis documents ready to share with stakeholders.
 
+---
+
+## 📚 Knowledge Directory
+
+**When helping with synthesis:**
+- Synthesis methods (affinity mapping, journey mapping, personas) → `../../context/research-methods/synthesis-methods.md`
+- RainFocus design principles → `../../context/rainfocus-overview.md`
+- Method-specific synthesis approaches → `../../context/research-methods/[category].md`
+
+---
+
 ## What this command does
 
 Transform raw research data into structured, actionable findings. This skill:

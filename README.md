@@ -117,6 +117,23 @@ Once the plugin is installed, type any of these in a Claude Code session to laun
 
 ---
 
+#### `/rf-research:research-advisor`
+**Chat with Claude pre-loaded with RainFocus research context.**
+
+This is your conversational catch-all. Use it when you want to:
+- Think out loud about a research problem
+- Ask open-ended questions
+- Get quick advice without creating a deliverable
+- Figure out if you even need research
+- Decide what to do next
+- Make judgment calls on methodology or approach
+
+It has access to the full RainFocus methodology library (25+ methods), CS role definitions, research principles, and design context. When appropriate, it can route you to structured workflows for building plans, critiques, or reports.
+
+*Good for: Any time you want to talk through something without committing to a specific output. Start here if you're not sure where to start.*
+
+---
+
 #### `/rf-research:plan`
 **Build a research plan from scratch.**
 

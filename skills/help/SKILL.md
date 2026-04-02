@@ -13,6 +13,7 @@ Print this cheat sheet exactly as written below. Do not summarize or modify it.
 
 | Command | What it does |
 |---------|-------------|
+| `/rf-research:research-advisor` | Chat with Claude + RainFocus context (conversational catch-all). |
 | `/rf-research:plan` | Build a research plan from scratch — discovery or validation. |
 | `/rf-research:critique` | Get honest feedback on a plan you've already written. |
 | `/rf-research:method` | Get a method recommendation for your specific situation. |
