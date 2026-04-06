@@ -67,6 +67,10 @@
     "rf-google-drive": {
       "command": "node",
       "args": ["${CLAUDE_PLUGIN_ROOT}/google-drive-server/dist/server/index.js"]
+    },
+    "rf-coda": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/coda-server/dist/server/index.js"]
     }
   }
 }

@@ -5,7 +5,7 @@
 
 ## What is this?
 
-The RainFocus Research Assistant is a custom Claude plugin built specifically for our team. It isn't generic Claude — it's been trained on our research process, our methodology library, our role definitions across the CS org, how our clients work, and the way we think about building product at RainFocus. This plugin also has access to Confluence data, so it can quickly get context for whatever you're working on regarding RainFocus Admin and the RainFocus product. The RainFocus Research Assistant can also pull and synthesize Amplitude data to help answer research questions.
+The RainFocus Research Assistant is a custom Claude plugin built specifically for our team. It isn't generic Claude — it's been trained on our research process, our methodology library, our role definitions across the CS org, how our clients work, and the way we think about building product at RainFocus. This plugin also has access to Confluence, Google Drive, Coda, and Amplitude data, so it can quickly get context for whatever you're working on, pull meeting notes and transcripts, and help answer research questions with behavioral data.
 
 The RainFocus research assistant can help any designer on the team do better research, faster. Whether you've never run a user interview before or you just need a second set of eyes on a study plan before you put it in front of participants, this plugin is for you.
 
@@ -95,6 +95,8 @@ The first time you use the plugin, Claude will prompt you to authenticate each c
 
 - **Amplitude** — your RF Amplitude account
 - **Atlassian** — your RF credentials for Confluence and Jira (OAuth flow)
+- **Google Drive** — your RF Google account (OAuth flow)
+- **Coda** — your personal Coda API token (one-time setup)
 
 This only happens once per tool. After that, Claude pulls context from them automatically.
 
@@ -104,8 +106,17 @@ This only happens once per tool. After that, Claude pulls context from them auto
 |------|----------------------|
 | **Amplitude** | Behavioral data and usage patterns |
 | **Confluence / Jira** | RainFocus help docs and platform tickets in read/search-only mode |
+| **Google Drive** | Access to meeting notes, transcripts, and research artifacts |
+| **Coda** | Read and write access to Coda documents, pages, and tables |
 
-You don't have to do anything special — Claude draws on these when relevant. You can also ask directly: "Pull up the Figma file for [feature] and tell me what we already know about this area."
+You don't have to do anything special — Claude draws on these when relevant.
+
+**Setting up Coda:** After installing the plugin, run the Coda auth setup:
+```bash
+cd /path/to/coda-server
+node dist/auth/index.js
+```
+You'll be prompted to paste your Coda API token. Get one at https://coda.io/account (API settings → Generate API token → set type to "MCP").
 
 If you've previously connected Atlassian, disconnect and reconnect once so the latest plugin connector settings are applied.
 
