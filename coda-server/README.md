@@ -22,11 +22,9 @@ This plugin works out of the box - no installation required! The server is pre-b
    ```
    Paste your token when prompted.
 
-3. **Add to Claude Code:**
-   ```bash
-   claude mcp add rf-coda node dist/server/index.js
-   ```
-   (Run this from the `coda-server` directory)
+3. **Restart Claude Code:**
+   The plugin's `.mcp.json` already includes the Coda server configuration.
+   Just restart Claude Code to pick up the changes.
 
 4. **Start using Coda!**
    Launch Claude Code and you'll have access to all Coda MCP tools.

@@ -1,14 +1,12 @@
 {
   "name": "rf-coda-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "ncc build server.js -o dist/server && ncc build auth.js -o dist/auth && cd dist/server && ln -sf ../auth/index.js auth.js"
+    "build": "ncc build launcher.js -o dist/launcher && ncc build auth.js -o dist/auth"
   },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@vercel/ncc": "^0.38.4"
   }

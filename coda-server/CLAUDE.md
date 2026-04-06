@@ -5,28 +5,31 @@
 This server uses **bundling** to distribute a single-file executable to non-technical users.
 
 ### Source Files (what you edit):
-- `server.js` - MCP server that proxies to Coda's remote MCP endpoint
+- `launcher.js` - Wrapper that reads token and launches mcp-remote
 - `auth.js` - Token setup script
 
 ### Bundled Files (what users run):
-- `dist/server/index.js` - Bundled server (includes all npm dependencies)
+- `dist/launcher/index.js` - Bundled launcher
 - `dist/auth/index.js` - Bundled auth script
 
 ## How It Works
 
 1. **User runs auth setup**: Prompts for Coda API token, saves to `~/.config/rf-coda-mcp/token.json`
-2. **Claude Code starts server**: Launches `dist/server/index.js` via stdio transport
-3. **Server proxies to Coda**: Reads token, forwards all MCP requests to `https://coda.io/apis/mcp` with Authorization header
-4. **Coda responds**: Remote MCP server handles the actual tool execution
+2. **Claude Code starts launcher**: Launches `dist/launcher/index.js` via stdio transport
+3. **Launcher reads token**: Loads token from config file
+4. **Launcher spawns mcp-remote**: Runs `npx mcp-remote https://coda.io/apis/mcp --header "Authorization: Bearer TOKEN"`
+5. **mcp-remote bridges transports**: Converts between stdio (Claude) and HTTP/SSE (Coda)
+6. **Coda responds**: Remote MCP server handles the actual tool execution
 
 This approach gives us:
 - Individual token per user (secure, auditable)
-- Bundled distribution (no npm install needed)
-- Transparent proxy (users get full Coda MCP capabilities)
+- Bundled distribution (no npm install needed for users, mcp-remote installed on-demand)
+- Transparent bridge (users get full Coda MCP capabilities)
+- Proper HTTP/SSE transport handling via mcp-remote
 
 ## CRITICAL: Rebuild After Changes
 
-**Whenever you edit `server.js` or `auth.js`, you MUST rebuild:**
+**Whenever you edit `launcher.js` or `auth.js`, you MUST rebuild:**
 
 ```bash
 cd coda-server
@@ -36,39 +39,37 @@ npm run build
 This regenerates the `dist/` folder that users actually run.
 
 ### What to commit:
-✅ Source files (`server.js`, `auth.js`)  
+✅ Source files (`launcher.js`, `auth.js`)  
 ✅ Bundled files (`dist/` folder)  
 ❌ Dependencies (`node_modules/` - gitignored)
 
 ## Why Bundling?
 
-This plugin is distributed to non-technical RainFocus team members who don't have npm installed. Bundling means:
+This plugin is distributed to non-technical RainFocus team members. Bundling means:
 - Users download and it "just works"
-- No `npm install` required
-- All dependencies embedded in single file
+- No `npm install` required for the launcher/auth scripts
+- `mcp-remote` installed automatically on-demand via npx
 
 ## Build Process
 
 The build script (`npm run build`) uses `@vercel/ncc` to:
-1. Bundle `server.js` + all dependencies → `dist/server/index.js`
-2. Bundle `auth.js` + all dependencies → `dist/auth/index.js`
-3. Create symlink `dist/server/auth.js` → `dist/auth/index.js` (for error messages)
+1. Bundle `launcher.js` → `dist/launcher/index.js`
+2. Bundle `auth.js` → `dist/auth/index.js`
 
 ## Testing Changes
 
-After rebuilding, test the bundled server:
+After rebuilding, test the bundled components:
 
 ```bash
 # Test bundled auth
 node dist/auth/index.js
 
-# Test bundled server (should show error if no token)
-node dist/server/index.js
+# Test bundled launcher (should start mcp-remote if token exists)
+node dist/launcher/index.js
+# Press Ctrl+C to stop
 
-# Add to Claude Code and test
-claude mcp add rf-coda-test node $(pwd)/dist/server/index.js
-claude .
-# Ask: "What Coda tools do you have access to?"
+# Test in Claude Code
+# Restart Claude Code, then ask: "What Coda tools do you have access to?"
 ```
 
 ## Common Mistakes

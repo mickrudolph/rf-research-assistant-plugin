@@ -70,7 +70,7 @@
     },
     "rf-coda": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/coda-server/dist/server/index.js"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/coda-server/dist/launcher/index.js"]
     }
   }
 }
