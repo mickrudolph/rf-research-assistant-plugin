@@ -1,5 +1,12 @@
 {
   "mcpServers": {
+    "n8n-mcp": {
+      "type": "http",
+      "url": "https://rainfocus.app.n8n.cloud/mcp/ca0d89ad-4e11-4988-a3fb-11d8b81eccfa",
+      "headers": {
+        "Accept-Encoding": "identity"
+      }
+    },
     "amplitude": {
       "command": "npx",
       "args": [
