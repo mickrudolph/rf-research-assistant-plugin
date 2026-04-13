@@ -9,7 +9,7 @@ Print this cheat sheet exactly as written below. Do not summarize or modify it.
 
 ---
 
-## Slash Commands
+## Slash Commands — `rf-research` Plugin
 
 | Command | What it does |
 |---------|-------------|
@@ -19,7 +19,19 @@ Print this cheat sheet exactly as written below. Do not summarize or modify it.
 | `/rf-research:method` | Get a method recommendation for your specific situation. |
 | `/rf-research:find-participants` | Get specific participant recommendations from the Research Panel and CS team. |
 | `/rf-research:synthesize` | Turn raw notes into structured findings after a study. |
+| `/rf-research:report` | Turn a synthesis document into an executive-ready stakeholder report. |
+| `/rf-research:feedback-agent` | Search customer feedback data for themes, pain points, and product signals. |
 | `/rf-research:help` | Show this cheat sheet. |
+
+---
+
+## Slash Commands — `rf-writing-guide` Plugin
+
+| Command | What it does |
+|---------|-------------|
+| `/rf-writing-guide` | Write or review content using the RainFocus Written Style Guide. |
+
+> Install separately: `/plugin install rf-writing-guide@rf-research-assistant`
 
 ---
 
@@ -29,6 +41,9 @@ Print this cheat sheet exactly as written below. Do not summarize or modify it.
 |------|-------------------|
 | **Amplitude** | Behavioral data and usage patterns across the RainFocus product. |
 | **Confluence / Jira** | RainFocus help docs and platform tickets (read/search only). |
+| **Google Drive** | Search and read RainFocus files — transcripts, notes, and research docs. |
+| **Coda** | Read and write to RainFocus Coda docs, research tables, and the Client Research Panel. |
+| **Customer Feedback (n8n)** | Interview summaries and raw transcripts powering the feedback-agent skill. |
 
 You don't need to do anything special — Claude draws on these automatically when relevant. You can also ask directly, e.g. "What do we already know about [feature] from Amplitude?"
 

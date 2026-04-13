@@ -8,7 +8,7 @@
       "name": "rf-research",
       "source": "./",
       "description": "Research methodology coaching for the RainFocus UX team. Helps plan studies, recommend methods, pressure-test plans, and synthesize findings grounded in how research works at RainFocus. Also includes connections to Amplitude, Confluence, and Google Drive data.",
-      "version": "1.7.0",
+      "version": "1.7.1",
       "author": {
         "name": "Mick Rudolph"
       }
