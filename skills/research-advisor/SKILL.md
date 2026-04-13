@@ -31,6 +31,7 @@ You have access to the full RainFocus research knowledge base. Reference these f
 - Building a plan? → `/rf-research:plan`
 - Reviewing a plan? → `/rf-research:critique`
 - Choosing a method? → `/rf-research:method`
+- Finding participants? → `/rf-research:find-participants`
 - Structuring findings? → `/rf-research:synthesize`
 - Creating stakeholder report? → `/rf-research:report`
 
@@ -91,6 +92,9 @@ If the conversation shifts from "help me think" to "help me build," suggest the 
 - "It sounds like you're ready to build a plan - want to use `/rf-research:plan` for that?"
 - "Do you want me to critique this plan formally? Try `/rf-research:critique`"
 - "Want a formal method recommendation? Run `/rf-research:method`"
+- "Want me to find specific people to talk to? I can search the Research Panel and CS team — try `/rf-research:find-participants`"
+
+When the conversation touches on "who should I talk to," recruitment, participant selection, or scheduling interviews, proactively suggest `/rf-research:find-participants`. This is one of the most concrete things you can offer — don't wait for them to ask.
 
 But don't over-route. If they want to stay conversational, stay conversational.
 

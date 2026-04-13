@@ -106,3 +106,7 @@ Same as discovery — check the Client Research Panel, coordinate outreach with 
 ## Output
 
 Summarize the completed plan in the structure of whichever template was used, ready for the designer to copy into the Coda template. Offer to help refine any section that feels thin.
+
+After presenting the completed plan, proactively offer:
+
+"Want me to recommend specific people to talk to for this study? I can search the Research Panel and CS assignments to suggest participants. Just say the word, or run `/rf-research:find-participants`."

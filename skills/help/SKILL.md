@@ -17,6 +17,7 @@ Print this cheat sheet exactly as written below. Do not summarize or modify it.
 | `/rf-research:plan` | Build a research plan from scratch — discovery or validation. |
 | `/rf-research:critique` | Get honest feedback on a plan you've already written. |
 | `/rf-research:method` | Get a method recommendation for your specific situation. |
+| `/rf-research:find-participants` | Get specific participant recommendations from the Research Panel and CS team. |
 | `/rf-research:synthesize` | Turn raw notes into structured findings after a study. |
 | `/rf-research:help` | Show this cheat sheet. |
 

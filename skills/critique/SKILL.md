@@ -85,3 +85,7 @@ Give a critique structured as:
 - **Verdict**: is this plan ready to run, needs minor tweaks, or needs significant rethinking?
 
 Be honest. Don't sugarcoat issues that would result in wasted research.
+
+After delivering the critique, if the plan involves interviews or testing sessions with participants, proactively offer:
+
+"Need help finding the right people to talk to? I can search the Research Panel and CS assignments to recommend specific participants. Just say the word, or run `/rf-research:find-participants`."
