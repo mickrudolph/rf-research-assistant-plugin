@@ -108,6 +108,7 @@ This only happens once per tool. After that, Claude pulls context from them auto
 | **Confluence / Jira** | RainFocus help docs and platform tickets in read/search-only mode |
 | **Google Drive** | Access to meeting notes, transcripts, and research artifacts |
 | **Coda** | Read and write access to Coda documents, pages, and tables |
+| **n8n** | Customer interview transcripts and feedback search |
 
 You don't have to do anything special — Claude draws on these when relevant.
 
@@ -178,6 +179,33 @@ Describe your design phase, what you're trying to learn, your timeline, and any 
 Paste in notes, observations, or transcripts from a completed study. Claude will help you identify patterns, structure findings by theme, pull out the key insight in each area, and frame things in language that's useful for stakeholders and roadmap conversations.
 
 *Good for: After any study, especially when you've got a lot of raw material and aren't sure where to start.*
+
+---
+
+#### `/rf-research:feedback-agent`
+**Query customer feedback data to surface themes, pain points, and product insights.**
+
+Give it a topic, a product area, or a specific customer name and it'll search across customer interviews, notes, and feedback sessions to surface what people are actually saying. It can identify recurring themes, prioritize pain points by impact, and pull direct quotes.
+
+*Good for: Checking existing signals before spinning up new research, or grounding a synthesis in real customer language.*
+
+---
+
+#### `/rf-research:find-participants`
+**Get specific participant recommendations for your study.**
+
+Describe who you need to talk to and Claude will query the Research Panel, Client Accounts, and CS Assignments in Coda to recommend real people — internal CS users, external clients, or both. Returns names, roles, and context on why they're a good fit.
+
+*Good for: After you've built a research plan and need to identify who to recruit. Always check here before going through a CSM cold.*
+
+---
+
+#### `/rf-research:report`
+**Turn a synthesis document into an executive-ready stakeholder report.**
+
+Paste in your synthesis (or a link to it in Coda) and Claude will produce a concise, decision-maker-focused report — recommendation-led, confidence-weighted, and organized around design implications. Where `/synthesize` produces a deep researcher artifact, `/report` produces the 2–3 page version your PM and stakeholders will actually read.
+
+*Good for: After you've synthesized a study and need to communicate findings up the chain.*
 
 ---
 
