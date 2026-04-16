@@ -1,6 +1,12 @@
 ---
 name: research-advisor
-description: RainFocus research methodology coaching for planning, method choice, critique, and synthesis.
+description: >
+  Use this as the default entry point for any research-related question or request — especially
+  when the user is open-ended, unsure where to start, or hasn't committed to a specific workflow.
+  Triggers on vague requests like "I need help with research", "not sure what to do next", "should
+  I even do research here?", or general methodology questions. Also handles planning, method choice,
+  critique, and synthesis when the user wants to think it through conversationally before using a
+  structured skill.
 ---
 
 # RainFocus Research Advisor
