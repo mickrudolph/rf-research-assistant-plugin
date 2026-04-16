@@ -386,6 +386,37 @@ const TOOLS = [
     },
   },
   {
+    name: "check_availability",
+    description:
+      "Check availability across multiple people in the organization using Google Calendar's Freebusy API. Pass email addresses to see when everyone is free. Returns busy blocks per person and shared free windows. Works with any @rainfocus.com account visible in the org directory.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        emails: {
+          type: "array",
+          items: { type: "string" },
+          description:
+            "List of email addresses to check availability for. Use 'primary' or omit to include the authenticated user.",
+        },
+        timeMin: {
+          type: "string",
+          description: "Start of the window in ISO 8601 format (default: now)",
+        },
+        timeMax: {
+          type: "string",
+          description:
+            "End of the window in ISO 8601 format (default: 5 business days from now)",
+        },
+        duration: {
+          type: "number",
+          description:
+            "Minimum meeting duration in minutes to filter free windows (default: 30)",
+        },
+      },
+      required: ["emails"],
+    },
+  },
+  {
     name: "download_file",
     description:
       "Download a file from Google Drive to the local filesystem. Supports format conversion for Google Workspace files (Docs, Sheets, Slides). For Google Docs: docx, pdf, odt, txt, rtf, html, epub. For Google Sheets: xlsx, pdf, ods, csv, tsv. For Google Slides: pptx, pdf, odp, txt. Regular files download in their original format.",
@@ -700,10 +731,105 @@ async function handleDeleteEvent({ calendarId = "primary", eventId }) {
   return `Event ${eventId} deleted successfully.`;
 }
 
+async function handleCheckAvailability({ emails, timeMin, timeMax, duration = 30 }) {
+  const cal = await getCalendar();
+  const now = new Date();
+
+  const start = timeMin ? new Date(timeMin) : now;
+
+  let end;
+  if (timeMax) {
+    end = new Date(timeMax);
+  } else {
+    end = new Date(start);
+    let daysAdded = 0;
+    while (daysAdded < 5) {
+      end.setDate(end.getDate() + 1);
+      if (end.getDay() !== 0 && end.getDay() !== 6) daysAdded++;
+    }
+    end.setHours(18, 0, 0, 0);
+  }
+
+  const res = await cal.freebusy.query({
+    requestBody: {
+      timeMin: start.toISOString(),
+      timeMax: end.toISOString(),
+      items: emails.map((email) => ({ id: email })),
+    },
+  });
+
+  const calendars = res.data.calendars || {};
+  const lines = [];
+
+  for (const email of emails) {
+    const info = calendars[email];
+    if (!info) {
+      lines.push(`${email}: no data returned (may not exist or no access)`);
+      continue;
+    }
+    if (info.errors?.length) {
+      lines.push(`${email}: error — ${info.errors.map((e) => e.reason).join(", ")}`);
+      continue;
+    }
+    const busy = info.busy || [];
+    if (busy.length === 0) {
+      lines.push(`${email}: entirely free in this window`);
+    } else {
+      const blocks = busy
+        .map((b) => `  ${b.start} → ${b.end}`)
+        .join("\n");
+      lines.push(`${email}: ${busy.length} busy block(s)\n${blocks}`);
+    }
+  }
+
+  const allBusy = emails
+    .flatMap((email) => (calendars[email]?.busy || []).map((b) => ({ ...b, email })));
+  allBusy.sort((a, b) => new Date(a.start) - new Date(b.start));
+
+  const mergedBusy = [];
+  for (const block of allBusy) {
+    const blockStart = new Date(block.start).getTime();
+    const blockEnd = new Date(block.end).getTime();
+    if (mergedBusy.length === 0 || blockStart >= mergedBusy[mergedBusy.length - 1].end) {
+      mergedBusy.push({ start: blockStart, end: blockEnd });
+    } else {
+      mergedBusy[mergedBusy.length - 1].end = Math.max(mergedBusy[mergedBusy.length - 1].end, blockEnd);
+    }
+  }
+
+  const minMs = duration * 60 * 1000;
+  const windowStart = start.getTime();
+  const windowEnd = end.getTime();
+  const freeSlots = [];
+
+  let cursor = windowStart;
+  for (const block of mergedBusy) {
+    if (block.start - cursor >= minMs) {
+      freeSlots.push({ start: new Date(cursor).toISOString(), end: new Date(block.start).toISOString() });
+    }
+    cursor = Math.max(cursor, block.end);
+  }
+  if (windowEnd - cursor >= minMs) {
+    freeSlots.push({ start: new Date(cursor).toISOString(), end: new Date(windowEnd).toISOString() });
+  }
+
+  lines.push("");
+  if (freeSlots.length === 0) {
+    lines.push(`No shared free windows of ${duration}+ minutes found in this range.`);
+  } else {
+    lines.push(`Shared free windows (${duration}+ min):`);
+    for (const slot of freeSlots) {
+      lines.push(`  ${slot.start} → ${slot.end}`);
+    }
+  }
+
+  return lines.join("\n");
+}
+
 // --- MCP Server ---
 
 const server = new Server(
-  { name: "rf-google-drive", version: "1.3.0" },
+  { name: "rf-google-drive", version: "1.4.0" },
   { capabilities: { tools: {} } }
 );
 
@@ -773,6 +899,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         break;
       case "delete_event":
         result = await handleDeleteEvent(args);
+        break;
+      case "check_availability":
+        result = await handleCheckAvailability(args);
         break;
       default:
         return {
