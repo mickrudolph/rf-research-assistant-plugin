@@ -703,7 +703,7 @@ async function handleDeleteEvent({ calendarId = "primary", eventId }) {
 // --- MCP Server ---
 
 const server = new Server(
-  { name: "rf-google-drive", version: "1.2.0" },
+  { name: "rf-google-drive", version: "1.3.0" },
   { capabilities: { tools: {} } }
 );
 
