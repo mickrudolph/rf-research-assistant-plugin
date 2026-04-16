@@ -23,7 +23,10 @@ const __dirname = path.dirname(__filename);
 const CONFIG_DIR = path.join(os.homedir(), ".config", "rf-google-drive-mcp");
 const TOKEN_PATH = path.join(CONFIG_DIR, "tokens.json");
 const CREDENTIALS_PATH = path.join(CONFIG_DIR, "credentials.json");
-const SCOPES = ["https://www.googleapis.com/auth/drive.readonly"];
+const SCOPES = [
+  "https://www.googleapis.com/auth/drive.readonly",
+  "https://www.googleapis.com/auth/calendar",
+];
 const PORTS = [3000, 3001, 3002, 3003, 3004];
 
 // --- Credential management ---
@@ -120,6 +123,11 @@ const FORMAT_MAPPINGS = {
 async function getDrive() {
   const auth = await getAuthenticatedClient();
   return google.drive({ version: "v3", auth });
+}
+
+async function getCalendar() {
+  const auth = await getAuthenticatedClient();
+  return google.calendar({ version: "v3", auth });
 }
 
 async function getDocContent(fileId) {
@@ -265,6 +273,116 @@ const TOOLS = [
         },
       },
       required: ["fileId"],
+    },
+  },
+  {
+    name: "list_calendars",
+    description: "List all calendars the user has access to.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  {
+    name: "list_events",
+    description:
+      "List events from a Google Calendar. Defaults to the primary calendar and the next 7 days.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        calendarId: {
+          type: "string",
+          description: "Calendar ID (default: 'primary')",
+        },
+        timeMin: {
+          type: "string",
+          description: "Start time in ISO 8601 format (default: now)",
+        },
+        timeMax: {
+          type: "string",
+          description: "End time in ISO 8601 format (default: 7 days from now)",
+        },
+        maxResults: {
+          type: "number",
+          description: "Max number of events to return (default 20, max 250)",
+        },
+        query: {
+          type: "string",
+          description: "Free-text search filter on event title/description",
+        },
+      },
+    },
+  },
+  {
+    name: "create_event",
+    description: "Create a new event on a Google Calendar.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        calendarId: {
+          type: "string",
+          description: "Calendar ID (default: 'primary')",
+        },
+        summary: { type: "string", description: "Event title" },
+        description: { type: "string", description: "Event description" },
+        location: { type: "string", description: "Event location" },
+        start: {
+          type: "string",
+          description: "Start time in ISO 8601 format",
+        },
+        end: {
+          type: "string",
+          description: "End time in ISO 8601 format",
+        },
+        attendees: {
+          type: "array",
+          items: { type: "string" },
+          description: "List of attendee email addresses",
+        },
+        timeZone: {
+          type: "string",
+          description: "IANA time zone (e.g. 'America/Denver'). Defaults to calendar's time zone.",
+        },
+      },
+      required: ["summary", "start", "end"],
+    },
+  },
+  {
+    name: "update_event",
+    description: "Update an existing Google Calendar event.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        calendarId: {
+          type: "string",
+          description: "Calendar ID (default: 'primary')",
+        },
+        eventId: { type: "string", description: "Event ID to update" },
+        summary: { type: "string", description: "New event title" },
+        description: { type: "string", description: "New event description" },
+        location: { type: "string", description: "New event location" },
+        start: { type: "string", description: "New start time in ISO 8601 format" },
+        end: { type: "string", description: "New end time in ISO 8601 format" },
+        attendees: {
+          type: "array",
+          items: { type: "string" },
+          description: "Updated list of attendee email addresses",
+        },
+        timeZone: { type: "string", description: "IANA time zone" },
+      },
+      required: ["eventId"],
+    },
+  },
+  {
+    name: "delete_event",
+    description: "Delete a Google Calendar event.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        calendarId: {
+          type: "string",
+          description: "Calendar ID (default: 'primary')",
+        },
+        eventId: { type: "string", description: "Event ID to delete" },
+      },
+      required: ["eventId"],
     },
   },
   {
@@ -501,10 +619,91 @@ async function handleDownloadFile({ fileId, format, outputPath }) {
   return `File downloaded successfully to: ${finalPath}`;
 }
 
+// --- Calendar helpers ---
+
+async function handleListCalendars() {
+  const cal = await getCalendar();
+  const res = await cal.calendarList.list();
+  const items = res.data.items || [];
+  if (items.length === 0) return "No calendars found.";
+  return items
+    .map((c) => `${c.summary} [id: ${c.id}]${c.primary ? " (primary)" : ""}`)
+    .join("\n");
+}
+
+async function handleListEvents({ calendarId = "primary", timeMin, timeMax, maxResults = 20, query } = {}) {
+  const cal = await getCalendar();
+  const now = new Date();
+  const params = {
+    calendarId,
+    timeMin: timeMin || now.toISOString(),
+    timeMax: timeMax || new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    maxResults: Math.min(maxResults, 250),
+    singleEvents: true,
+    orderBy: "startTime",
+  };
+  if (query) params.q = query;
+
+  const res = await cal.events.list(params);
+  const events = res.data.items || [];
+  if (events.length === 0) return "No events found in that time range.";
+
+  return events
+    .map((e) => {
+      const start = e.start?.dateTime || e.start?.date || "?";
+      const end = e.end?.dateTime || e.end?.date || "?";
+      const attendees = (e.attendees || []).map((a) => a.email).join(", ");
+      const location = e.location ? `\n  Location: ${e.location}` : "";
+      const desc = e.description ? `\n  Description: ${e.description}` : "";
+      const att = attendees ? `\n  Attendees: ${attendees}` : "";
+      return `${e.summary || "(no title)"} [id: ${e.id}]\n  Start: ${start}\n  End: ${end}${location}${desc}${att}`;
+    })
+    .join("\n\n");
+}
+
+async function handleCreateEvent({ calendarId = "primary", summary, description, location, start, end, attendees = [], timeZone }) {
+  const cal = await getCalendar();
+  const tz = timeZone || "UTC";
+  const event = {
+    summary,
+    ...(description && { description }),
+    ...(location && { location }),
+    start: { dateTime: start, timeZone: tz },
+    end: { dateTime: end, timeZone: tz },
+    ...(attendees.length > 0 && { attendees: attendees.map((email) => ({ email })) }),
+  };
+  const res = await cal.events.insert({ calendarId, requestBody: event });
+  return `Event created: ${res.data.summary} [id: ${res.data.id}]\nLink: ${res.data.htmlLink}`;
+}
+
+async function handleUpdateEvent({ calendarId = "primary", eventId, summary, description, location, start, end, attendees, timeZone }) {
+  const cal = await getCalendar();
+  const existing = await cal.events.get({ calendarId, eventId });
+  const tz = timeZone || existing.data.start?.timeZone || "UTC";
+
+  const patch = {
+    ...(summary !== undefined && { summary }),
+    ...(description !== undefined && { description }),
+    ...(location !== undefined && { location }),
+    ...(start !== undefined && { start: { dateTime: start, timeZone: tz } }),
+    ...(end !== undefined && { end: { dateTime: end, timeZone: tz } }),
+    ...(attendees !== undefined && { attendees: attendees.map((email) => ({ email })) }),
+  };
+
+  const res = await cal.events.patch({ calendarId, eventId, requestBody: patch });
+  return `Event updated: ${res.data.summary} [id: ${res.data.id}]\nLink: ${res.data.htmlLink}`;
+}
+
+async function handleDeleteEvent({ calendarId = "primary", eventId }) {
+  const cal = await getCalendar();
+  await cal.events.delete({ calendarId, eventId });
+  return `Event ${eventId} deleted successfully.`;
+}
+
 // --- MCP Server ---
 
 const server = new Server(
-  { name: "rf-google-drive", version: "1.1.0" },
+  { name: "rf-google-drive", version: "1.2.0" },
   { capabilities: { tools: {} } }
 );
 
@@ -559,6 +758,21 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         break;
       case "download_file":
         result = await handleDownloadFile(args);
+        break;
+      case "list_calendars":
+        result = await handleListCalendars();
+        break;
+      case "list_events":
+        result = await handleListEvents(args);
+        break;
+      case "create_event":
+        result = await handleCreateEvent(args);
+        break;
+      case "update_event":
+        result = await handleUpdateEvent(args);
+        break;
+      case "delete_event":
+        result = await handleDeleteEvent(args);
         break;
       default:
         return {
