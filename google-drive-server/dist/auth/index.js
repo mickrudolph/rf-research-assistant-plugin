@@ -20240,7 +20240,10 @@ __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependen
 const CONFIG_DIR = path__WEBPACK_IMPORTED_MODULE_2__.join(os__WEBPACK_IMPORTED_MODULE_3__.homedir(), ".config", "rf-google-drive-mcp");
 const CREDENTIALS_PATH = path__WEBPACK_IMPORTED_MODULE_2__.join(CONFIG_DIR, "credentials.json");
 const TOKEN_PATH = path__WEBPACK_IMPORTED_MODULE_2__.join(CONFIG_DIR, "tokens.json");
-const SCOPES = ["https://www.googleapis.com/auth/drive.readonly"];
+const SCOPES = [
+  "https://www.googleapis.com/auth/drive.readonly",
+  "https://www.googleapis.com/auth/calendar",
+];
 const PORTS = [3000, 3001, 3002, 3003, 3004];
 
 // --- Load or prompt for credentials ---

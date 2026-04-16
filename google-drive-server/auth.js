@@ -11,7 +11,10 @@ import { exec } from "child_process";
 const CONFIG_DIR = path.join(os.homedir(), ".config", "rf-google-drive-mcp");
 const CREDENTIALS_PATH = path.join(CONFIG_DIR, "credentials.json");
 const TOKEN_PATH = path.join(CONFIG_DIR, "tokens.json");
-const SCOPES = ["https://www.googleapis.com/auth/drive.readonly"];
+const SCOPES = [
+  "https://www.googleapis.com/auth/drive.readonly",
+  "https://www.googleapis.com/auth/calendar",
+];
 const PORTS = [3000, 3001, 3002, 3003, 3004];
 
 // --- Load or prompt for credentials ---
