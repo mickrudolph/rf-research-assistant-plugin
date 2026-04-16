@@ -49,7 +49,7 @@ Works in Claude Code CLI, Claude Desktop (Cowork tab), and Claude Desktop (Code 
 **Verify installation**
 
 ```bash
-claude plugin list
+/plugin
 ```
 
 **Update**
@@ -60,7 +60,7 @@ claude plugin list
 
 Run this anytime to pull the latest version.
 
-**Uninstall**
+**Uninstall (in the terminal)**
 
 ```bash
 claude plugin uninstall rf-research
@@ -70,7 +70,7 @@ Clean uninstall, no residue. Reinstall any time with the same commands from abov
 
 ---
 
-### Method #2 – Claude Desktop App
+### Method #2 – Claude Desktop App (Currently not in use)
 **Requirements:** Claude Pro, Max, Team, or Enterprise plan.
 Works with Claude Cowork & Claude Code
 
