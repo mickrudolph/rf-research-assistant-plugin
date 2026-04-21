@@ -1,6 +1,6 @@
 {
   "name": "rf-google-drive-mcp",
-  "version": "1.4.2",
+  "version": "1.4.4",
   "type": "module",
   "private": true,
   "scripts": {

@@ -19,7 +19,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // --- Config ---
-// (trivial edit to test pre-commit hook)
 
 const CONFIG_DIR = path.join(os.homedir(), ".config", "rf-google-drive-mcp");
 const TOKEN_PATH = path.join(CONFIG_DIR, "tokens.json");
@@ -313,7 +312,7 @@ const TOOLS = [
   },
   {
     name: "create_event",
-    description: "Create a new event on a Google Calendar. Pass addMeet: true to automatically generate a Google Meet conferencing link on the event.",
+    description: "Create a new event on a Google Calendar. IMPORTANT: If the user specifies a time (like '11am' or '3pm'), always pass the `timeZone` parameter explicitly — use the user's local IANA time zone (e.g. 'America/Denver' for Mountain Time). If omitted, the event falls back to the calendar's default time zone, which may not match the user's location. A Google Meet conferencing link is attached by default; pass addMeet: false to skip it for events that don't need one (e.g. in-person meetings, personal reminders, focus/deep-work blocks, all-day events).",
     inputSchema: {
       type: "object",
       properties: {
@@ -339,11 +338,11 @@ const TOOLS = [
         },
         timeZone: {
           type: "string",
-          description: "IANA time zone (e.g. 'America/Denver'). Defaults to calendar's time zone.",
+          description: "IANA time zone (e.g. 'America/Denver', 'America/New_York'). STRONGLY RECOMMENDED whenever a specific time is given. If omitted, the calendar's default time zone is used as a fallback.",
         },
         addMeet: {
           type: "boolean",
-          description: "When true, attach a Google Meet conferencing link to the event.",
+          description: "Whether to attach a Google Meet conferencing link. Defaults to true. Set to false for in-person meetings, personal reminders, focus/deep-work blocks, or all-day events.",
         },
       },
       required: ["summary", "start", "end"],
@@ -697,9 +696,17 @@ async function handleListEvents({ calendarId = "primary", timeMin, timeMax, maxR
     .join("\n\n");
 }
 
-async function handleCreateEvent({ calendarId = "primary", summary, description, location, start, end, attendees = [], timeZone, addMeet = false }) {
+async function handleCreateEvent({ calendarId = "primary", summary, description, location, start, end, attendees = [], timeZone, addMeet = true }) {
   const cal = await getCalendar();
-  const tz = timeZone || "UTC";
+  let tz = timeZone;
+  if (!tz) {
+    try {
+      const calInfo = await cal.calendars.get({ calendarId });
+      tz = calInfo.data.timeZone || "UTC";
+    } catch {
+      tz = "UTC";
+    }
+  }
   const event = {
     summary,
     ...(description && { description }),
@@ -847,7 +854,7 @@ async function handleCheckAvailability({ emails, timeMin, timeMax, duration = 30
 // --- MCP Server ---
 
 const server = new Server(
-  { name: "rf-google-drive", version: "1.4.0" },
+  { name: "rf-google-drive", version: "1.4.4" },
   { capabilities: { tools: {} } }
 );
 
