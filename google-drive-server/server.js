@@ -312,7 +312,7 @@ const TOOLS = [
   },
   {
     name: "create_event",
-    description: "Create a new event on a Google Calendar.",
+    description: "Create a new event on a Google Calendar. Pass addMeet: true to automatically generate a Google Meet conferencing link on the event.",
     inputSchema: {
       type: "object",
       properties: {
