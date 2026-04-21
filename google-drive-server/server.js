@@ -340,6 +340,10 @@ const TOOLS = [
           type: "string",
           description: "IANA time zone (e.g. 'America/Denver'). Defaults to calendar's time zone.",
         },
+        addMeet: {
+          type: "boolean",
+          description: "When true, attach a Google Meet conferencing link to the event.",
+        },
       },
       required: ["summary", "start", "end"],
     },
@@ -692,7 +696,7 @@ async function handleListEvents({ calendarId = "primary", timeMin, timeMax, maxR
     .join("\n\n");
 }
 
-async function handleCreateEvent({ calendarId = "primary", summary, description, location, start, end, attendees = [], timeZone }) {
+async function handleCreateEvent({ calendarId = "primary", summary, description, location, start, end, attendees = [], timeZone, addMeet = false }) {
   const cal = await getCalendar();
   const tz = timeZone || "UTC";
   const event = {
@@ -702,9 +706,22 @@ async function handleCreateEvent({ calendarId = "primary", summary, description,
     start: { dateTime: start, timeZone: tz },
     end: { dateTime: end, timeZone: tz },
     ...(attendees.length > 0 && { attendees: attendees.map((email) => ({ email })) }),
+    ...(addMeet && {
+      conferenceData: {
+        createRequest: {
+          requestId: `meet-${Date.now()}`,
+          conferenceSolutionKey: { type: "hangoutsMeet" },
+        },
+      },
+    }),
   };
-  const res = await cal.events.insert({ calendarId, requestBody: event });
-  return `Event created: ${res.data.summary} [id: ${res.data.id}]\nLink: ${res.data.htmlLink}`;
+  const res = await cal.events.insert({
+    calendarId,
+    requestBody: event,
+    ...(addMeet && { conferenceDataVersion: 1 }),
+  });
+  const meetLink = res.data.conferenceData?.entryPoints?.find((ep) => ep.entryPointType === "video")?.uri;
+  return `Event created: ${res.data.summary} [id: ${res.data.id}]\nLink: ${res.data.htmlLink}${meetLink ? `\nMeet: ${meetLink}` : ""}`;
 }
 
 async function handleUpdateEvent({ calendarId = "primary", eventId, summary, description, location, start, end, attendees, timeZone }) {
