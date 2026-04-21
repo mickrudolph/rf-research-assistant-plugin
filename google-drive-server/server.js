@@ -19,6 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // --- Config ---
+// (trivial edit to test pre-commit hook)
 
 const CONFIG_DIR = path.join(os.homedir(), ".config", "rf-google-drive-mcp");
 const TOKEN_PATH = path.join(CONFIG_DIR, "tokens.json");
