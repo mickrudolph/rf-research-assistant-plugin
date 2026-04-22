@@ -312,7 +312,7 @@ const TOOLS = [
   },
   {
     name: "create_event",
-    description: "Create a new event on a Google Calendar. IMPORTANT: If the user specifies a time (like '11am' or '3pm'), always pass the `timeZone` parameter explicitly — use the user's local IANA time zone (e.g. 'America/Denver' for Mountain Time). If omitted, the event falls back to the calendar's default time zone, which may not match the user's location. A Google Meet conferencing link is attached by default; pass addMeet: false to skip it for events that don't need one (e.g. in-person meetings, personal reminders, focus/deep-work blocks, all-day events).",
+    description: "Create a new event on a Google Calendar. IMPORTANT: If the user specifies a time (like '11am' or '3pm'), always pass the `timeZone` parameter explicitly — use the user's local IANA time zone (e.g. 'America/Denver' for Mountain Time). If omitted, the event falls back to the calendar's default time zone, which may not match the user's location. A Google Meet conferencing link is attached by default; pass addMeet: false to skip it for events that don't need one (e.g. in-person meetings, personal reminders, focus/deep-work blocks, all-day events). IMPORTANT: Always include the authenticated user's own email address in the attendees list — Google Calendar sets them as organizer but will not show them as an attendee unless their email is explicitly passed.",
     inputSchema: {
       type: "object",
       properties: {
@@ -854,7 +854,7 @@ async function handleCheckAvailability({ emails, timeMin, timeMax, duration = 30
 // --- MCP Server ---
 
 const server = new Server(
-  { name: "rf-google-drive", version: "1.4.4" },
+  { name: "rf-google-drive", version: "1.4.5" },
   { capabilities: { tools: {} } }
 );
 
